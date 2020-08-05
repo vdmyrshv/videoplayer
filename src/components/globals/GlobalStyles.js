@@ -18,7 +18,7 @@ export default createGlobalStyle`
     body{
         box-sizing: border-box;
         color: ${setColor.primaryColor};
-        background: red;
+        /* background: red; */
         /* imported main global font using tagged template literal */
         ${setFont.main}
     }

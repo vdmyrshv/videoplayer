@@ -1,20 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
-import SliderItem from './components/sliderItem/SliderItem'
+import SliderCarousel from './components/sliderCarousel/SliderCarousel'
+import GlobalStyles from './components/globals/GlobalStyles'
+
+import mockData from './data/dummyVideos'
 
 const App = ({ className }) => {
+	console.log(mockData)
 	return (
+		<>
+		<GlobalStyles />
 		<div className={className}>
-			<SliderItem />
+			<SliderCarousel data={mockData} />
 		</div>
+		</>
 	)
 }
 
 export default styled(App)`
-	background-color: red;
 	height: 100vh;
 	width: 100%;
+	padding: 20px;
 	display: flex;
-	justify-content: center;
-	align-items: center;
 `

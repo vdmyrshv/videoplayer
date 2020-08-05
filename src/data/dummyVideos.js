@@ -51,7 +51,7 @@ export default [
       numHovers: 0,
       numClicks: 0,
       tileName: "RGDB Enterprises",
-      videoUrl: "",
+      videoUrl: "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
     },
     {
       id: 5,

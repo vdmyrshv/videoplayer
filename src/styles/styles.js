@@ -4,7 +4,7 @@ const defaultImage =
 	'https://images.unsplash.com/photo-1519046904884-53103b34b206?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'
 
 export const setColor = {
-	primaryColor: 'darkgoldenrod',
+	primaryColor: 'black',
 	mainWhite: '#fff',
 	mainBlack: '#555',
 	mainGrey: '#ececec',

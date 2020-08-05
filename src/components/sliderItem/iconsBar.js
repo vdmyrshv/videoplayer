@@ -32,7 +32,7 @@ export default styled(IconsBar)`
 	left: 0;
 	right: 0;
 	color: white;
-	text-align: center;
 	display: flex;
 	justify-content: center;
+	padding-bottom: 5px;
 `

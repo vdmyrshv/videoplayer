@@ -9,11 +9,13 @@ import mockData from '../../data/dummyVideos'
 
 const { videoUrl, tileName } = mockData[2]
 
-const SliderItem = ({ className }) => {
+const SliderItem = ({ className, data }) => {
+	const { videoUrl } = data
 	const [isHovering, setIsHovering] = useState(false)
 	const handleMouseEnter = () => setIsHovering(true)
 	const handleMouseLeave = () => setIsHovering(false)
 
+	console.log('DATA', data)
 	console.log(isHovering)
 
 	return (
@@ -27,7 +29,10 @@ const SliderItem = ({ className }) => {
 				loop
 				muted
 			/>
-			<IconsBar handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave}/>
+			<IconsBar
+				handleMouseEnter={handleMouseEnter}
+				handleMouseLeave={handleMouseLeave}
+			/>
 		</div>
 	)
 }
@@ -37,10 +42,12 @@ export default styled(SliderItem)`
 	width: 300;
 	transition: 0.2s all;
 	position: relative;
+	margin: 20px;
 
 	:hover {
 		transform: scale(1.1);
 		transition: 0.2s;
+		z-index: 20;
 	}
 
 	:focus {
