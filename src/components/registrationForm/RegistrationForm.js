@@ -1,5 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
+
+import useEffectAfterMount from '../../utils/hooks/useEffectAfterMount'
+
+import _ from 'lodash'
+
+import { useDebouncedFn } from 'beautiful-react-hooks'
+
+import axios from 'axios'
 
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
@@ -7,7 +15,35 @@ import 'react-toggle/style.css'
 const RegistrationForm = ({ className }) => {
 	const [email, setEmail] = useState('')
 	const [userName, setUsername] = useState('')
+	const [attendeeData, setAttendeeData] = useState('')
+	const [userMatch, setUserMatch] = useState(false)
 
+	useEffect(() => {
+        getAttendeeData()
+    }, [])
+
+    useEffectAfterMount(()=> {
+        emailChecker()
+        return () => emailChecker.cancel()
+    }, [email])
+
+	const emailChecker = useDebouncedFn(() => {
+        console.log('attendeeDATA!!!!', attendeeData)
+        console.log('email', email)
+        const isMatch = attendeeData.indexOf(email)
+        console.log('EMAIL MATCHED?', isMatch)
+	}, 3000)
+
+	const getAttendeeData = async () => {
+		const res = await axios.get(
+			'http://expo-hall-env.eba-xa8er7aa.us-west-2.elasticbeanstalk.com/attendees/'
+		)
+		const emails = res.data.map(att => att.email)
+		setAttendeeData(emails)
+		console.log('res', res)
+		console.log('emails', emails)
+    }
+    
 	return (
 		<div className={className}>
 			<div>
@@ -17,23 +53,23 @@ const RegistrationForm = ({ className }) => {
 			<form>
 				<h5>Please enter your information below</h5>
 				<div className='formItem'>
-					<label htmlFor='email'>Email</label>
+					<label htmlFor='email'>Email(Your Username)</label>
 					<input
 						type='email'
 						name='email'
 						id='email'
-						placeholder='email'
+						placeholder='email/username'
 						value={email}
 						onChange={e => setEmail(e.target.value)}
 					/>
 				</div>
 				<div className='formItem'>
-					<label htmlFor='username'>Username</label>
+					<label htmlFor='username'>Screen Name</label>
 					<input
 						type='text'
 						name='username'
 						id='username'
-						placeholder='username'
+						placeholder='screename'
 						value={userName}
 						onChange={e => setUsername(e.target.value)}
 					/>
@@ -45,7 +81,17 @@ const RegistrationForm = ({ className }) => {
 							icons={false}
 							onChange={() => console.log('changed')}
 						/>
-						<span>GPRA save data</span>
+						<span>GDPR save data</span>
+					</label>
+				</div>
+				<div className='toggle'>
+					<label>
+						<Toggle
+							defaultChecked={false}
+							icons={false}
+							onChange={() => console.log('changed')}
+						/>
+						<span>Automatically share data with exhibitors</span>
 					</label>
 				</div>
 				<div className='checkbox'>
@@ -132,13 +178,19 @@ export default styled(RegistrationForm)`
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		margin-left: 2rem;
 	}
 
-    .toggle {
-        margin: 2rem 0;
+	.toggle {
+		margin: 2rem 0;
 
-        span {
-            margin-left: 1rem;
-        }
-    }
+		label {
+			display: flex;
+			align-items: center;
+		}
+
+		span {
+			margin-left: 1rem;
+		}
+	}
 `

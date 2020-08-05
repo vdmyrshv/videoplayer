@@ -5,10 +5,6 @@ import IconsBar from './IconsBar'
 
 import styled from 'styled-components'
 
-import mockData from '../../data/dummyVideos'
-
-const { videoUrl, tileName } = mockData[2]
-
 const SliderItem = ({ className, data }) => {
 	const { videoUrl } = data
 	const [isHovering, setIsHovering] = useState(false)

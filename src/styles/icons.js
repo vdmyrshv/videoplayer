@@ -1,8 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const IconsContainer = ({ className, children }) => {
-	return <div className={className}>{children}</div>
+import ReactTooltip from 'react-tooltip'
+
+const IconsContainer = ({ className, children, tooltip }) => {
+	return (
+		<div className={className} data-tip data-for={tooltip}>
+			{children}
+		</div>
+	)
 }
 
 const StyledIconsContainer = styled(IconsContainer)`
@@ -20,7 +26,7 @@ const StyledIconsContainer = styled(IconsContainer)`
 `
 
 export const PhoneIcon = () => (
-	<StyledIconsContainer>
+	<StyledIconsContainer tooltip='phone'>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -33,7 +39,7 @@ export const PhoneIcon = () => (
 )
 
 export const IdIcon = () => (
-	<StyledIconsContainer>
+	<StyledIconsContainer tooltip='id'>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -44,7 +50,7 @@ export const IdIcon = () => (
 	</StyledIconsContainer>
 )
 export const GiftIcon = () => (
-	<StyledIconsContainer>
+	<StyledIconsContainer tooltip='gift'>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -61,7 +67,7 @@ export const GiftIcon = () => (
 )
 
 export const ArrowIcon = () => (
-	<StyledIconsContainer>
+	<StyledIconsContainer tooltip='arrow'>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -73,7 +79,7 @@ export const ArrowIcon = () => (
 )
 
 export const ChatIcon = () => (
-	<StyledIconsContainer>
+	<StyledIconsContainer tooltip='chat'>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -91,7 +97,7 @@ export const ChatIcon = () => (
 )
 
 export const CalendarIcon = () => (
-	<StyledIconsContainer>
+	<StyledIconsContainer tooltip='calendar'>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
