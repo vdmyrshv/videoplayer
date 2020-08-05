@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import styled from 'styled-components'
 
@@ -6,6 +6,8 @@ import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
 import SliderItem from '../sliderItem/SliderItem'
+
+import ExhibitorContext from '../../context/ExhibitorContext'
 
 const responsive = {
 	superLargeDesktop: {
@@ -29,6 +31,10 @@ const responsive = {
 }
 
 const SliderCarousel = ({ data, className }) => {
+
+	const exhibitors = useContext(ExhibitorContext)
+	console.log('EXHIBITOR CONTEXT', exhibitors)
+
 	return (
 		<div className={className}>
 			{data.map(item => (

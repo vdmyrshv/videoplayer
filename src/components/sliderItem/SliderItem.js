@@ -11,9 +11,6 @@ const SliderItem = ({ className, data }) => {
 	const handleMouseEnter = () => setIsHovering(true)
 	const handleMouseLeave = () => setIsHovering(false)
 
-	console.log('DATA', data)
-	console.log(isHovering)
-
 	return (
 		<div className={className}>
 			<ReactPlayer

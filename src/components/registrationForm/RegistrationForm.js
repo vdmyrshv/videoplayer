@@ -3,8 +3,6 @@ import styled from 'styled-components'
 
 import useEffectAfterMount from '../../utils/hooks/useEffectAfterMount'
 
-import _ from 'lodash'
-
 import { useDebouncedFn } from 'beautiful-react-hooks'
 
 import axios from 'axios'
@@ -19,19 +17,19 @@ const RegistrationForm = ({ className }) => {
 	const [userMatch, setUserMatch] = useState(false)
 
 	useEffect(() => {
-        getAttendeeData()
-    }, [])
+		getAttendeeData()
+	}, [])
 
-    useEffectAfterMount(()=> {
-        emailChecker()
-        return () => emailChecker.cancel()
-    }, [email])
+	useEffectAfterMount(() => {
+		emailChecker()
+		return () => emailChecker.cancel()
+	}, [email])
 
 	const emailChecker = useDebouncedFn(() => {
-        console.log('attendeeDATA!!!!', attendeeData)
-        console.log('email', email)
-        const isMatch = attendeeData.indexOf(email)
-        console.log('EMAIL MATCHED?', isMatch)
+		console.log('attendeeDATA!!!!', attendeeData)
+		console.log('email', email)
+		const isMatch = attendeeData.indexOf(email)
+		console.log('EMAIL MATCHED?', isMatch)
 	}, 3000)
 
 	const getAttendeeData = async () => {
@@ -42,8 +40,8 @@ const RegistrationForm = ({ className }) => {
 		setAttendeeData(emails)
 		console.log('res', res)
 		console.log('emails', emails)
-    }
-    
+	}
+
 	return (
 		<div className={className}>
 			<div>
@@ -53,7 +51,9 @@ const RegistrationForm = ({ className }) => {
 			<form>
 				<h5>Please enter your information below</h5>
 				<div className='formItem'>
-					<label htmlFor='email'>Email(Your Username)</label>
+					<label htmlFor='email' className='formLabel'>
+						Email/Username
+					</label>
 					<input
 						type='email'
 						name='email'
@@ -64,7 +64,9 @@ const RegistrationForm = ({ className }) => {
 					/>
 				</div>
 				<div className='formItem'>
-					<label htmlFor='username'>Screen Name</label>
+					<label className='formLabel' htmlFor='username'>
+						Screen Name
+					</label>
 					<input
 						type='text'
 						name='username'
@@ -75,24 +77,22 @@ const RegistrationForm = ({ className }) => {
 					/>
 				</div>
 				<div className='toggle'>
-					<label>
-						<Toggle
-							defaultChecked={false}
-							icons={false}
-							onChange={() => console.log('changed')}
-						/>
-						<span>GDPR save data</span>
-					</label>
+					<Toggle
+						defaultChecked={false}
+						className='toggleClass'
+						icons={false}
+						onChange={() => console.log('changed')}
+					/>
+					<span>GDPR save data</span>
 				</div>
 				<div className='toggle'>
-					<label>
-						<Toggle
-							defaultChecked={false}
-							icons={false}
-							onChange={() => console.log('changed')}
-						/>
-						<span>Automatically share data with exhibitors</span>
-					</label>
+					<Toggle
+						defaultChecked={false}
+						className='toggleClass'
+						icons={false}
+						onChange={() => console.log('changed')}
+					/>
+					<span>Automatically share data with exhibitors</span>
 				</div>
 				<div className='checkbox'>
 					<input
@@ -137,6 +137,20 @@ export default styled(RegistrationForm)`
 	justify-content: center;
 	align-items: center;
 
+	form {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+
+		& > div {
+			margin-bottom: 2rem;
+		}
+	}
+
+	.formLabel {
+		margin-bottom: 0.5rem;
+	}
+
 	input {
 		background-color: black;
 		outline: none;
@@ -160,7 +174,6 @@ export default styled(RegistrationForm)`
 	}
 
 	label {
-		padding: 1rem;
 		font-size: 2rem;
 	}
 
@@ -178,19 +191,19 @@ export default styled(RegistrationForm)`
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		margin-left: 2rem;
 	}
 
 	.toggle {
-		margin: 2rem 0;
-
-		label {
-			display: flex;
-			align-items: center;
-		}
+		display: flex;
+		align-items: center;
 
 		span {
 			margin-left: 1rem;
+			font-size: 2rem;
 		}
-	}
+    }
+    
+    .toggleClass.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+        background-color: darkcyan;
+    }
 `
