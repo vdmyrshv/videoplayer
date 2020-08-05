@@ -43,10 +43,11 @@ export default styled(SliderItem)`
 	transition: 0.2s all;
 	position: relative;
 	margin: 20px;
+	transition: 0.1s;
 
 	:hover {
 		transform: scale(1.1);
-		transition: 0.2s;
+		transition: 2s;
 		z-index: 20;
 	}
 
