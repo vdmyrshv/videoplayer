@@ -19,34 +19,11 @@ const IconsBar = ({ className, handleMouseEnter, handleMouseLeave }) => {
 			onMouseLeave={handleMouseLeave}
 		>
 			<PhoneIcon />
-			<ReactTooltip id='phone' place='right' type='dark' effect='solid'>
-				<span>This is the phone</span>
-			</ReactTooltip>
 			<IdIcon />
-			<ReactTooltip id='id' place='right' type='dark' effect='solid'>
-				<span>this is the id</span>
-			</ReactTooltip>
 			<GiftIcon />
-			<ReactTooltip id='gift' place='right' type='dark' effect='solid'>
-				<span>this is the gift</span>
-			</ReactTooltip>
 			<ArrowIcon />
-			<ReactTooltip id='arrow' place='right' type='dark' effect='solid'>
-				<span>this is the arrow</span>
-			</ReactTooltip>
 			<ChatIcon />
-			<ReactTooltip id='chat' place='right' type='dark' effect='solid'>
-				<span>chat with a representative</span>
-			</ReactTooltip>
 			<CalendarIcon />
-			<ReactTooltip
-				id='calendar'
-				place='right'
-				type='dark'
-				effect='solid'
-			>
-				<span>book a meeting</span>
-			</ReactTooltip>
 		</div>
 	)
 }
@@ -60,5 +37,4 @@ export default styled(IconsBar)`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	padding-bottom: 5px;
 `

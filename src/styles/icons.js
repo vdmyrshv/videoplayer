@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import ReactTooltip from 'react-tooltip'
-
 const IconsContainer = ({ className, children, tooltip }) => {
 	return (
 		<div className={className} data-tip data-for={tooltip}>
@@ -14,10 +12,10 @@ const IconsContainer = ({ className, children, tooltip }) => {
 const StyledIconsContainer = styled(IconsContainer)`
 	height: 40px;
 	width: 40px;
-	fill: white;
+	fill: red;
 	transition: 0.2s;
 	padding: 5px;
-	margin: 0 10px;
+	margin: 0 5px;
 
 	:hover {
 		transform: scale(1.2);
