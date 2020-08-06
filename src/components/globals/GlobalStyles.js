@@ -23,7 +23,7 @@ export default createGlobalStyle`
         ${setFont.main}
     }
     ::selection {
-        background-color: rgba(0, 139, 139, 0.5);
+        background-color: rgba(25, 118, 210, 0.5);
         color: white;
     }
     h1,h2,h3,h4,h5,h6 {

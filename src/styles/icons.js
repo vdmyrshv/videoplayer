@@ -10,16 +10,16 @@ const IconsContainer = ({ className, children, tooltip }) => {
 }
 
 const StyledIconsContainer = styled(IconsContainer)`
-	height: 40px;
-	width: 40px;
-	fill: red;
+	height: 30px;
+	width: 30px;
+	fill: white;
 	transition: 0.2s;
 	padding: 5px;
 	margin: 0 5px;
 
 	:hover {
 		transform: scale(1.2);
-		fill: red;
+		fill: rgb(26, 59, 103);
 	}
 `
 

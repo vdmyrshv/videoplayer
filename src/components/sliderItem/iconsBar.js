@@ -37,4 +37,5 @@ export default styled(IconsBar)`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+
 `

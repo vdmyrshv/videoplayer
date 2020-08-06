@@ -33,13 +33,15 @@ const responsive = {
 	}
 }
 
-const SliderCarousel = ({ data, className, category }) => {
+const SliderCarousel = ({ data, className }) => {
+
+	const {name, tile_set: tileset} = data
 
 	console.log('EXHIBITOR CONTEXT', data)
 
 	return (
 		<div className={className}>
-			<h1>{category}</h1>
+			<h2>{name}</h2>
 			<Carousel
 				responsive={responsive}
 				swipeable={false}
@@ -49,8 +51,11 @@ const SliderCarousel = ({ data, className, category }) => {
 				infinite={true} 
 				removeArrowOnDeviceType={["tablet", "mobile"]}
 				partialVisible={true}
+				sliderClass='slider'
+				itemClass='item'
+				containerClass='container'
 			>
-				{data.map(data => (
+				{!!tileset && tileset.map(data => (
 					<SliderItem key={data.id} data={data} />
 				))}
 			</Carousel>
@@ -64,12 +69,26 @@ export default styled(SliderCarousel)`
 	background-color: black;
 	color: white;
 
-	h1 {
-		margin: 2rem;
+	h2 {
+		margin-left: 1.5rem;
+
 	}
 
 	.slider {
-		display: flex;
-		flex-direction: row;
+		overflow: visible;
+		margin: 0;
+		padding: 0;
+	}
+
+	.item {
+		margin: 0;
+		padding: 0;
+	}
+
+	.container {
+		z-index: 0;
+		height: 40vh;
+		overflow: visible;
+		margin-bottom: 2rem;
 	}
 `
