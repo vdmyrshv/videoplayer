@@ -13,14 +13,16 @@ const SliderItem = ({ className, data }) => {
 	const [isFocused, setIsFocused] = useState(false)
 	const handleMouseEnter = () => setIsHovering(true)
 	const handleMouseLeave = () => setIsHovering(false)
-	useEffect(()=> {console.log(isFocused)}, [isFocused])
+	useEffect(() => {
+		console.log(isFocused)
+	}, [isFocused])
 	const truncatedCaption = truncateString(caption, 120)
 
 	return (
 		<div
 			className={className}
 			onClick={() => setIsFocused(true)}
-			onMouseLeave={()=> setIsFocused(false)}
+			onMouseLeave={() => setIsFocused(false)}
 		>
 			<div
 				className='background'
@@ -40,7 +42,9 @@ const SliderItem = ({ className, data }) => {
 				muted
 			/> */}
 				<h6>{company}</h6>
-				<p style={isFocused ? {opacity: 1} : {}}>{truncatedCaption}</p>
+				<p style={isFocused ? { opacity: 1 } : { opacity: 0 }}>
+					{truncatedCaption}
+				</p>
 				<div className='icons-bar'>
 					<IconsBar
 						handleMouseEnter={handleMouseEnter}
@@ -85,8 +89,11 @@ export default styled(SliderItem)`
 
 	p {
 		width: 70%;
-		opacity: 0;
-		transition: 0.2s;
+		transition: .4s;
+		cursor: context-menu;
+		::selection {
+			background-color: transparent;
+		}
 	}
 
 	:not(:hover) {

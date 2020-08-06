@@ -18,11 +18,13 @@ const RegistrationForm = ({ className }) => {
 	const [screenName, setScreenName] = useState('')
 	const [attendeeData, setAttendeeData] = useState('')
 	const [userMatch, setUserMatch] = useState(undefined)
-
+	
 
 	useEffect(() => {
 		getAttendeeData()
 	}, [])
+
+	useEffect(() => {console.log('STATE', state)} , [state])
 
 	useEffectAfterMount(() => {
 		emailChecker()
@@ -35,11 +37,24 @@ const RegistrationForm = ({ className }) => {
 		const isMatch = attendeeData.indexOf(email)
 		if (isMatch !== -1) {
 			setUserMatch(true)
+			setUserContext(email)
 		} else {
 			setUserMatch(false)
 		}
 		console.log('EMAIL MATCHED?', isMatch)
-	}, 3000)
+	}, 1000)
+
+	const setUserContext = async (email) => {
+		try {
+			const {data} = await expoHallAPI.post('/login/', {email: email})
+			console.log('RETURNED USER', data)
+			setUser(data.attendee)
+		} catch (error) {
+			console.log('ERROR', error)
+		}
+
+		
+	}
 
 	const getAttendeeData = async () => {
 		const {data} = await expoHallAPI.get('/attendees/')
