@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactPlayer from 'react-player'
 
 import truncateString from '../../utils/truncateString'
@@ -10,13 +10,18 @@ import styled from 'styled-components'
 const SliderItem = ({ className, data }) => {
 	const { company, caption, image } = data
 	const [isHovering, setIsHovering] = useState(false)
+	const [isFocused, setIsFocused] = useState(false)
 	const handleMouseEnter = () => setIsHovering(true)
 	const handleMouseLeave = () => setIsHovering(false)
-
+	useEffect(()=> {console.log(isFocused)}, [isFocused])
 	const truncatedCaption = truncateString(caption, 120)
 
 	return (
-		<div className={className}>
+		<div
+			className={className}
+			onClick={() => setIsFocused(true)}
+			onMouseLeave={()=> setIsFocused(false)}
+		>
 			<div
 				className='background'
 				style={{
@@ -35,7 +40,7 @@ const SliderItem = ({ className, data }) => {
 				muted
 			/> */}
 				<h6>{company}</h6>
-				<p>{truncatedCaption}</p>
+				<p style={isFocused ? {opacity: 1} : {}}>{truncatedCaption}</p>
 				<div className='icons-bar'>
 					<IconsBar
 						handleMouseEnter={handleMouseEnter}
@@ -63,7 +68,6 @@ export default styled(SliderItem)`
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: contain;
-		
 	}
 
 	.icons-bar {
@@ -77,7 +81,6 @@ export default styled(SliderItem)`
 		bottom: -50px;
 		left: 0;
 		right: 0;
-
 	}
 
 	p {
@@ -91,10 +94,9 @@ export default styled(SliderItem)`
 	}
 
 	:hover {
-		transform: scale(2);
+		transform: scale(1.1);
 		transition: 0.2s;
 		z-index: 20;
-		
 
 		.icons-bar {
 			opacity: 1;
@@ -108,20 +110,9 @@ export default styled(SliderItem)`
 			transition: 0.2s;
 		} */
 
-		p {
+		/* p {
 			opacity: 1;
 			transition: 0.2s;
-		}
-	}
-
-	:active {
-		transform: scale(1.1);
-		transition: 0.2s;
-		z-index: 20;
-	}
-
-	:focus {
-		transform: scale(1.1);
-		z-index: 20;
+		} */
 	}
 `

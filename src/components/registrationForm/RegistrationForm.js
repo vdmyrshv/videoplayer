@@ -1,20 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
+
+import {Context as UserContext} from '../../context/UserContext'
 
 import useEffectAfterMount from '../../utils/hooks/useEffectAfterMount'
 
 import { useDebouncedFn } from 'beautiful-react-hooks'
 
-import axios from 'axios'
+import expoHallAPI from '../../api/expoHallAPI'
 
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
 
 const RegistrationForm = ({ className }) => {
+	const {state, setUser} = useContext(UserContext)
 	const [email, setEmail] = useState('')
-	const [userName, setUsername] = useState('')
+	const [screenName, setScreenName] = useState('')
 	const [attendeeData, setAttendeeData] = useState('')
-	const [userMatch, setUserMatch] = useState(false)
+	const [userMatch, setUserMatch] = useState(undefined)
+
 
 	useEffect(() => {
 		getAttendeeData()
@@ -29,16 +33,20 @@ const RegistrationForm = ({ className }) => {
 		console.log('attendeeDATA!!!!', attendeeData)
 		console.log('email', email)
 		const isMatch = attendeeData.indexOf(email)
+		if (isMatch !== -1) {
+			setUserMatch(true)
+		} else {
+			setUserMatch(false)
+		}
 		console.log('EMAIL MATCHED?', isMatch)
 	}, 3000)
 
 	const getAttendeeData = async () => {
-		const res = await axios.get(
-			'http://expo-hall-env.eba-xa8er7aa.us-west-2.elasticbeanstalk.com/attendees/'
-		)
-		const emails = res.data.map(att => att.email)
+		const {data} = await expoHallAPI.get('/attendees/')
+		console.log('data', data)
+		const emails = data.map(att => att.email)
 		setAttendeeData(emails)
-		console.log('res', res)
+
 		console.log('emails', emails)
 	}
 
@@ -61,6 +69,8 @@ const RegistrationForm = ({ className }) => {
 						placeholder='email/username'
 						value={email}
 						onChange={e => setEmail(e.target.value)}
+						style={{borderColor: userMatch === true ? 'green' : userMatch === false ? 'red' : ''}}
+						onBlur={e => { if (!email) e.target.style.borderColor = 'grey'}}
 					/>
 				</div>
 				<div className='formItem'>
@@ -72,8 +82,8 @@ const RegistrationForm = ({ className }) => {
 						name='username'
 						id='username'
 						placeholder='screename'
-						value={userName}
-						onChange={e => setUsername(e.target.value)}
+						value={screenName}
+						onChange={e => setScreenName(e.target.value)}
 					/>
 				</div>
 				<div className='toggle'>
@@ -128,7 +138,7 @@ const RegistrationForm = ({ className }) => {
 }
 
 export default styled(RegistrationForm)`
-	height: 100vh;
+	height: 100%;
 	width: 100vw;
 	background-color: black;
 	color: #d1d1d1;
@@ -136,6 +146,7 @@ export default styled(RegistrationForm)`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	padding: 2rem;
 
 	form {
 		display: flex;
@@ -161,10 +172,6 @@ export default styled(RegistrationForm)`
 		font-size: 2rem;
 		::placeholder {
 			color: grey;
-		}
-
-		:focus {
-			border: red 2px solid;
 		}
 	}
 
@@ -201,9 +208,10 @@ export default styled(RegistrationForm)`
 			margin-left: 1rem;
 			font-size: 2rem;
 		}
-    }
-    
-    .toggleClass.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
-        background-color: darkcyan;
-    }
+	}
+
+	.toggleClass.react-toggle:hover:not(.react-toggle--disabled)
+		.react-toggle-track {
+		background-color: darkcyan;
+	}
 `

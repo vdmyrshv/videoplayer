@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const IconsContainer = ({ className, children, tooltip }) => {
 	return (
-		<div className={className} data-tip data-for={tooltip}>
+		<div className={className}>
 			{children}
 		</div>
 	)
