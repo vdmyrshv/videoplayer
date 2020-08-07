@@ -11,12 +11,15 @@
     "pure-react-carousel": "^1.27.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-modal": "^3.11.2",
     "react-multi-carousel": "^2.5.5",
     "react-player": "^2.6.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-slick": "^0.27.4",
     "react-toggle": "^4.1.1",
     "react-tooltip": "^4.2.7",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.1.1"
   },
   "scripts": {

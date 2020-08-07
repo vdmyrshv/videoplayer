@@ -48,9 +48,9 @@ const SliderCarousel = ({ data, className }) => {
 				draggable={false}
 				showDots={false}
 				ssr={true}
-				infinite={true} 
+				//infinite={true} 
 				//removeArrowOnDeviceType={["tablet", "mobile"]}
-				partialVisible={true}
+				//partialVisible={true}
 				sliderClass='slider'
 				itemClass='item'
 				containerClass='container'
@@ -78,16 +78,24 @@ export default styled(SliderCarousel)`
 		overflow: visible;
 		margin: 0;
 		padding: 0;
+
 	}
+	
 
 	.item {
+		height: 250px;
 		margin: 0;
 		padding: 0;
+		overflow: visible;
+
+		:not(:hover) {
+			z-index: -1;		
+		}
 	}
 
 	.container {
 		z-index: 0;
-		height: 40vh;
+		height: 50vh;
 		overflow: visible;
 		margin-bottom: 2rem;
 	}

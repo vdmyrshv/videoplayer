@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 
 import ExhibitorContext from '../context/ExhibitorContext'
 
@@ -7,6 +7,7 @@ import SliderCarousel from '../components/sliderCarousel/SliderCarousel'
 
 const SliderPage = ({ className }) => {
 	const exhibitors = useContext(ExhibitorContext)
+
 	return (
 		<div className={className}>
 			{!!exhibitors &&
