@@ -7,7 +7,8 @@ import IconsBar from './IconsBar'
 
 import styled from 'styled-components'
 
-import ReactModal from 'react-modal'
+import SliderItemModal from './SliderItemModal'
+
 
 let zoomCharacteristics = {
 	zoomSpeed: `transition: 2s;`,
@@ -28,6 +29,7 @@ const SliderItem = ({ className, data }) => {
 
 	const [isHovering, setIsHovering] = useState(false)
 	const [isFocused, setIsFocused] = useState(false)
+	const [isVideoVisible, setIsVideoVisible] = useState(false)
 	const [modalIsOpen, setModalIsOpen] = useState(false)
 
 	const handleMouseEnter = () => setIsHovering(true)
@@ -49,37 +51,11 @@ const SliderItem = ({ className, data }) => {
 
 	const openModal = () => setModalIsOpen(true)
 
-	const customStyles = {
-		overlay: {
-			position: 'fixed',
-			top: 0,
-			left: 0,
-			right: 0,
-			bottom: 0,
-			backgroundColor: 'transparent'
-		},
-		content: {
-			height: 400,
-			width: 500,
-			transform: 'translate(-50%, -50%)',
-			top: '50%',
-			left: '50%',
-			right: 'auto',
-			bottom: 'auto',
-			borderRadius: 20
-		}
-	}
+
 
 	return (
 		<>
-			<ReactModal
-				isOpen={modalIsOpen}
-				style={customStyles}
-				onRequestClose={closeModal}
-			>
-				<h1>{company}</h1>
-				<p>{caption}</p>
-			</ReactModal>
+			<SliderItemModal modalIsOpen={modalIsOpen} closeModal={closeModal} companyData={{company,caption, image}}/>
 			<div
 				className={className}
 				onClick={() => {
@@ -87,36 +63,33 @@ const SliderItem = ({ className, data }) => {
 					openModal()
 				}}
 				onMouseLeave={() => setIsFocused(false)}
+				style={{
+					backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), transparent), url("${image}")`
+				}}
 			>
-				<div
-					className='background'
-					style={{
-						backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), transparent), url("${image}")`
-					}}
-				>
-					{/* <ReactPlayer
-				url={videoUrl}
-				playing={isHovering}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
-				onClick={() => console.log('clicked!')}
-				height='300px'
-				width='450px'
-				loop
-				muted
-			/> */}
-					<h6>{company}</h6>
-					<p style={isFocused ? { opacity: 1 } : { opacity: 0 }}>
-						{truncatedCaption}
-					</p>
-					<div className='icons-bar'>
-						<IconsBar
-							handleMouseEnter={handleMouseEnter}
-							handleMouseLeave={handleMouseLeave}
-						/>
+
+						{/* {isVideoVisible && (
+							<ReactPlayer
+								url={videoUrl}
+								playing={isHovering}
+								onMouseEnter={handleMouseEnter}
+								onMouseLeave={handleMouseLeave}
+								onClick={() => console.log('clicked!')}
+								height='300px'
+								width='450px'
+								loop
+								muted
+							/>
+						)} */}
+						<h6>{company}</h6>
+						<div className='icons-bar'>
+							<IconsBar
+								handleMouseEnter={handleMouseEnter}
+								handleMouseLeave={handleMouseLeave}
+							/>
+						</div>
 					</div>
-				</div>
-			</div>
+
 		</>
 	)
 }
@@ -133,10 +106,15 @@ export default styled(SliderItem)`
 	z-index: 0;
 	background-color: black;
 
-	.background {
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+
+	.modal {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		background-color: blue;
 	}
 
 	.icons-bar {

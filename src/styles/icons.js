@@ -2,11 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const IconsContainer = ({ className, children, tooltip }) => {
-	return (
-		<div className={className}>
-			{children}
-		</div>
-	)
+	return <div className={className}>{children}</div>
 }
 
 const StyledIconsContainer = styled(IconsContainer)`
@@ -118,3 +114,25 @@ export const CalendarIcon = () => (
 		</svg>
 	</StyledIconsContainer>
 )
+
+const Close = ({ className }) => {
+	return (
+		<div className={className}>
+			<svg
+				xmlns='http://www.w3.org/2000/svg'
+				version='1.1'
+				viewBox='0 0 100 125'
+			>
+				<path
+					class='st0'
+					d='M61.2,50.5l32.1,32.1c3,3,3,7.7,0,10.7c-3,3-7.7,3-10.7,0L50.5,61.2L18.4,93.3c-3,3-7.7,3-10.7,0  c-3-3-3-7.7,0-10.7l32.1-32.1L7.7,18.4c-3-3-3-7.7,0-10.7s7.7-3,10.7,0l32.1,32.1L82.6,7.7c3-3,7.7-3,10.7,0c3,3,3,7.7,0,10.7  L61.2,50.5z'
+				/>
+			</svg>
+		</div>
+	)
+}
+
+export const CloseIcon = styled(Close)`
+	fill: red;
+	cursor: pointer;
+`
