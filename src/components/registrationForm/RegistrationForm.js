@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 
-import {Context as UserContext} from '../../context/UserContext'
+import { Context as UserContext } from '../../context/UserContext'
 
 import useEffectAfterMount from '../../utils/hooks/useEffectAfterMount'
 
@@ -13,18 +13,19 @@ import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
 
 const RegistrationForm = ({ className }) => {
-	const {state, setUser} = useContext(UserContext)
+	const { state, setUser } = useContext(UserContext)
 	const [email, setEmail] = useState('')
 	const [screenName, setScreenName] = useState('')
 	const [attendeeData, setAttendeeData] = useState('')
 	const [userMatch, setUserMatch] = useState(undefined)
-	
 
 	useEffect(() => {
 		getAttendeeData()
 	}, [])
 
-	useEffect(() => {console.log('STATE', state)} , [state])
+	useEffect(() => {
+		console.log('STATE', state)
+	}, [state])
 
 	useEffectAfterMount(() => {
 		emailChecker()
@@ -44,20 +45,18 @@ const RegistrationForm = ({ className }) => {
 		console.log('EMAIL MATCHED?', isMatch)
 	}, 1000)
 
-	const setUserContext = async (email) => {
+	const setUserContext = async email => {
 		try {
-			const {data} = await expoHallAPI.post('/login/', {email: email})
+			const { data } = await expoHallAPI.post('/login/', { email: email })
 			console.log('RETURNED USER', data)
 			setUser(data.attendee)
 		} catch (error) {
 			console.log('ERROR', error)
 		}
-
-		
 	}
 
 	const getAttendeeData = async () => {
-		const {data} = await expoHallAPI.get('/attendees/')
+		const { data } = await expoHallAPI.get('/attendees/')
 		console.log('data', data)
 		const emails = data.map(att => att.email)
 		setAttendeeData(emails)
@@ -84,8 +83,17 @@ const RegistrationForm = ({ className }) => {
 						placeholder='email/username'
 						value={email}
 						onChange={e => setEmail(e.target.value)}
-						style={{borderColor: userMatch === true ? 'green' : userMatch === false ? 'red' : ''}}
-						onBlur={e => { if (!email) e.target.style.borderColor = 'grey'}}
+						style={{
+							borderColor:
+								userMatch === true
+									? 'green'
+									: userMatch === false
+									? 'red'
+									: ''
+						}}
+						onBlur={e => {
+							if (!email) e.target.style.borderColor = 'grey'
+						}}
 					/>
 				</div>
 				<div className='formItem'>
@@ -125,9 +133,12 @@ const RegistrationForm = ({ className }) => {
 						id='acceptUse'
 						name='acceptUse'
 						value='yes'
+						className='checkmark'
 						//onChange={e => setAcceptUse(e.target.value)}
 					/>
-					<label for='acceptUse'>Accept terms of use</label>
+					<label for='acceptUse' className='checkbox-label'>
+						Accept terms of use
+					</label>
 				</div>
 				<div className='checkbox'>
 					<input
@@ -135,8 +146,11 @@ const RegistrationForm = ({ className }) => {
 						id='acceptConduct'
 						name='acceptConduct'
 						value='yes'
+						className='checkmark'
 					/>
-					<label for='acceptConduct'>Accept code of conduct</label>
+					<label for='acceptConduct' className='checkbox-label'>
+						Accept code of conduct
+					</label>
 				</div>
 				<div className='checkbox'>
 					<input
@@ -144,8 +158,12 @@ const RegistrationForm = ({ className }) => {
 						id='acceptPrivacy'
 						name='acceptPrivacy'
 						value='yes'
+						className='checkmark'
 					/>
-					<label for='acceptPrivacy'>Accept privacy</label>
+					<label for='acceptPrivacy' className='checkbox-label'>
+						{' '}
+						Accept privacy
+					</label>
 				</div>
 			</form>
 		</div>
@@ -213,6 +231,36 @@ export default styled(RegistrationForm)`
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		position: relative;
+		margin-left: 15px;
+	}
+
+	.checkmark {
+		visibility: hidden;
+	}
+
+	.checkmark:checked + .checkbox-label::before {
+			background-color: green;
+			z-index: 10;
+			transition: all 0.2s;
+	}
+
+	.checkbox-label {
+		::before {
+			height: 2rem;
+			width: 2rem;
+			content: '';
+			display: block;
+			position: absolute;
+			left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+			background-color: white;
+			border: 2px darkcyan solid;
+			border-radius: 5px;
+			z-index: 10;
+			transition: all 0.2s;
+		}
 	}
 
 	.toggle {

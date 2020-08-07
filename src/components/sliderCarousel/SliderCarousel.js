@@ -22,12 +22,12 @@ const responsive = {
 		partialVisibilityGutter: 20
 	},
 	tablet: {
-		breakpoint: { max: 1024, min: 464 },
+		breakpoint: { max: 1024, min: 768 },
 		items: 2,
 		partialVisibilityGutter: 20
 	},
 	mobile: {
-		breakpoint: { max: 464, min: 0 },
+		breakpoint: { max: 768, min: 0 },
 		items: 1,
 		partialVisibilityGutter: 20
 	}
@@ -49,7 +49,7 @@ const SliderCarousel = ({ data, className }) => {
 				showDots={false}
 				ssr={true}
 				infinite={true} 
-				removeArrowOnDeviceType={["tablet", "mobile"]}
+				//removeArrowOnDeviceType={["tablet", "mobile"]}
 				partialVisible={true}
 				sliderClass='slider'
 				itemClass='item'
