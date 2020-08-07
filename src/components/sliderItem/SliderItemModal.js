@@ -2,55 +2,111 @@ import React from 'react'
 
 import ReactModal from 'react-modal'
 
+import styled from 'styled-components'
+
 import { CloseIcon } from '../../styles/icons'
 
 import IconsBar from './IconsBar'
 
 const customStyles = {
-    overlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.2)'
-    },
-    content: {
-        height: '80%',
-        width: '80%',
-        transform: 'translate(-50%, -50%)',
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        borderRadius: 0,
-        border: 'none',
-        outline: 'none',
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'relative'
-    }
+	overlay: {
+		position: 'fixed',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		backgroundColor: 'rgba(0, 0, 0, 0.2)'
+	},
+	content: {
+		height: '70%',
+		width: '60%',
+		transform: 'translate(-50%, -50%)',
+		top: '50%',
+		left: '50%',
+		right: 'auto',
+		bottom: 'auto',
+		borderRadius: 0,
+		border: 'none',
+		outline: 'none',
+		display: 'flex',
+		flexDirection: 'column',
+		position: 'relative',
+		overflow: 'hidden'
+	}
 }
 
-const SliderItemModal = ({modalIsOpen, closeModal, companyData: {image, company, caption}}) => {
+const SliderItemModal = ({
+	modalIsOpen,
+	closeModal,
+	companyData: { image, company, caption },
+	className
+}) => {
 	return (
 		<ReactModal
 			isOpen={modalIsOpen}
 			style={customStyles}
 			onRequestClose={closeModal}
 		>
-			<div
-				onClick={closeModal}
-				style={{ height: 20, width: 20, left: 0 }}
-			>
-				<CloseIcon />
+			<div className={className}>
+				<div onClick={closeModal} className='close-icon'>
+					<CloseIcon />
+				</div>
+				<div className='image'>
+					<img
+						src={image}
+						alt='company image'
+						height='100%'
+					/>
+				</div>
+				<h1>{company}</h1>
+				<p>{caption}</p>
+				<IconsBar
+					style
+					iconSize={70}
+					iconColor='red'
+					iconHoverColor='blue'
+					style={{
+						bottom: 0,
+						left: 0,
+						right: 0,
+						flexDirection: 'row',
+                        marginBottom: 10
+					}}
+				/>
 			</div>
-			<img src={image} alt='company image' width='90%' />
-			<h1>{company}</h1>
-			<p>{caption}</p>
-			<IconsBar />
 		</ReactModal>
 	)
 }
 
-export default SliderItemModal
+export default styled(SliderItemModal)`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	height: 90%;
+	width: 100%;
+
+	.close-icon {
+		height: 20px;
+		width: 20px;
+		align-self: flex-end;
+    }
+    
+    .image {
+        height: 20%;
+    }
+
+	h1 {
+		padding: 2rem 0;
+	}
+
+	p {
+		height: 40%;
+		overflow-y: scroll;
+		scrollbar-width: none;
+		-ms-overflow-style: none; /* Internet Explorer 10+ */
+
+		::-webkit-scrollbar {
+			display: none;
+		}
+	}
+`

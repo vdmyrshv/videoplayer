@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 
+import IconContext from '../context/IconContext'
+
 const IconsContainer = ({ className, children, tooltip }) => {
-	return <div className={className}>{children}</div>
+	const { iconSize, iconColor, iconHoverColor } = useContext(IconContext)
+	const [isHover, setIsHover] = useState(false)
+	return (
+		<div
+			className={className}
+			style={{ fill: isHover ? iconHoverColor : iconColor, height: iconSize, width: iconSize }}
+			onMouseEnter={() => setIsHover(true)}
+			onMouseLeave={() => setIsHover(false)}
+		>
+			{children}
+		</div>
+	)
 }
 
 const StyledIconsContainer = styled(IconsContainer)`
-	height: 30px;
-	width: 30px;
-	fill: white;
 	transition: 0.2s;
 	padding: 5px;
 	margin: 0 5px;

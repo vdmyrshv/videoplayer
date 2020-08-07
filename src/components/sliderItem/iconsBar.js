@@ -11,31 +11,41 @@ import {
 
 import ReactTooltip from 'react-tooltip'
 
-const IconsBar = ({ className, handleMouseEnter, handleMouseLeave }) => {
+import IconContext from '../../context/IconContext'
+
+const IconsBar = ({
+	className,
+	handleMouseEnter,
+	handleMouseLeave,
+	style,
+	iconSize,
+	iconColor,
+	iconHoverColor='red'
+}) => {
+	
 	return (
 		<div
 			className={className}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
+			style={style}
 		>
-			<PhoneIcon />
-			<IdIcon />
-			<GiftIcon />
-			<ArrowIcon />
-			<ChatIcon />
-			<CalendarIcon />
+			<IconContext.Provider value={{ iconSize, iconColor, iconHoverColor }}>
+				<PhoneIcon iconSize={iconSize} />
+				<IdIcon iconSize={iconSize} />
+				<GiftIcon iconSize={iconSize} />
+				<ArrowIcon iconSize={iconSize} />
+				<ChatIcon iconSize={iconSize} />
+				<CalendarIcon iconSize={iconSize} />
+			</IconContext.Provider>
 		</div>
 	)
 }
 
 export default styled(IconsBar)`
 	position: absolute;
-	right: 0;
-	top: 0;
-	bottom: 0;
 	color: white;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-
 `

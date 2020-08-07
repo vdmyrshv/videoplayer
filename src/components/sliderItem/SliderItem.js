@@ -9,7 +9,6 @@ import styled from 'styled-components'
 
 import SliderItemModal from './SliderItemModal'
 
-
 let zoomCharacteristics = {
 	zoomSpeed: `transition: 2s;`,
 	zoomLevel: `transform: scale(1.5);`
@@ -42,8 +41,8 @@ const SliderItem = ({ className, data }) => {
 	useEffect(() => {
 		zoomCharacteristics.zoomSpeed = setZoomSpeed(data.zoomSpeed)
 		zoomCharacteristics.zoomLevel = setZoomLevel(data.zoomLevel)
-		console.log('ZOOMSPEED', zoomCharacteristics.zoomSpeed)
-		console.log('zoomlevel', zoomCharacteristics.zoomLevel)
+		//console.log('ZOOMSPEED', zoomCharacteristics.zoomSpeed)
+		//console.log('zoomlevel', zoomCharacteristics.zoomLevel)
 	}, [data])
 	console.log('SLIDE DATA', data)
 
@@ -51,11 +50,13 @@ const SliderItem = ({ className, data }) => {
 
 	const openModal = () => setModalIsOpen(true)
 
-
-
 	return (
 		<>
-			<SliderItemModal modalIsOpen={modalIsOpen} closeModal={closeModal} companyData={{company,caption, image}}/>
+			<SliderItemModal
+				modalIsOpen={modalIsOpen}
+				closeModal={closeModal}
+				companyData={{ company, caption, image }}
+			/>
 			<div
 				className={className}
 				onClick={() => {
@@ -67,8 +68,7 @@ const SliderItem = ({ className, data }) => {
 					backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), transparent), url("${image}")`
 				}}
 			>
-
-						{/* {isVideoVisible && (
+				{/* {isVideoVisible && (
 							<ReactPlayer
 								url={videoUrl}
 								playing={isHovering}
@@ -81,15 +81,17 @@ const SliderItem = ({ className, data }) => {
 								muted
 							/>
 						)} */}
-						<h6>{company}</h6>
-						<div className='icons-bar'>
-							<IconsBar
-								handleMouseEnter={handleMouseEnter}
-								handleMouseLeave={handleMouseLeave}
-							/>
-						</div>
-					</div>
-
+				<h6>{company}</h6>
+				<div className='icons-bar'>
+					<IconsBar
+						handleMouseEnter={handleMouseEnter}
+						handleMouseLeave={handleMouseLeave}
+						iconColor='white'
+						iconSize={35}
+						style={{ right: 0, top: 0, bottom: 0 }}
+					/>
+				</div>
+			</div>
 		</>
 	)
 }
