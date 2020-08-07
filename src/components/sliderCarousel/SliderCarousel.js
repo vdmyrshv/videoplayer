@@ -87,9 +87,23 @@ export default styled(SliderCarousel)`
 		margin: 0;
 		padding: 0;
 		overflow: visible;
+		transition: z-index 0s 0.5s;
+
+		:hover {
+			z-index: 10;
+			transition: z-index 0s 0s;
+			
+		}
+
+		:hover + * {
+			z-index: -2;
+			transition: z-index 0s 0s;
+		}
+		
 
 		:not(:hover) {
-			z-index: -1;		
+			z-index: -1;
+				
 		}
 	}
 

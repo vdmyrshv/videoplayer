@@ -12,7 +12,7 @@ const SliderPage = ({ className }) => {
 		<div className={className}>
 			{!!exhibitors &&
 				exhibitors.map(exhibitor => (
-					<SliderCarousel data={exhibitor} />
+					<SliderCarousel key={exhibitor.id} data={exhibitor} />
 				))}
 		</div>
 	)
