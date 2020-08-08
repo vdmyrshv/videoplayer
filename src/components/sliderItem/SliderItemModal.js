@@ -34,7 +34,8 @@ const customStyles = {
         backgroundColor: 'ivory',
         paddingLeft: 40,
         paddingRight: 40,
-        position: 'relative',
+		position: 'relative',
+		boxShadow: '0px 0px 48px 0px rgba(0,0,0,0.4)'
 	}
 }
 
