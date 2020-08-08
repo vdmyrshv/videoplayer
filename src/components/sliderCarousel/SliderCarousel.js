@@ -81,7 +81,10 @@ export default styled(SliderCarousel)`
 		overflow: visible;
 		margin: 0;
 		padding: 0;
-		margin-top: -10rem;
+		margin-top: -7rem;
+		background-color: red;
+		margin-left: 2rem;
+		box-shadow: 0px 0px 38px 0px rgba(0,0,0,0.6);
 	}
 
 	.item {

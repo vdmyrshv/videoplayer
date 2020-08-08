@@ -114,7 +114,6 @@ export default styled(SliderItem)`
 	width: 100%;
 	transition: 0.2s all;
 	position: relative;
-	margin: 20px;
 	transition: all 0.2s;
 	padding: 2rem;
 	border: 2px white solid;
