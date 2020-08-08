@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect, useRef } from 'react'
 
 import styled from 'styled-components'
 
+import { setColor } from '../../styles/styles'
+
 import SliderItem from '../sliderItem/SliderItem'
 
 import ExhibitorContext from '../../context/ExhibitorContext'
@@ -72,7 +74,7 @@ export default styled(SliderCarousel)`
 	h2 {
 		margin-left: 1.5rem;
 		font-weight: 300;
-		color: darkcyan;
+		color: ${setColor.primaryBlue};
 		margin-bottom: 4rem;
 	}
 
@@ -81,7 +83,6 @@ export default styled(SliderCarousel)`
 		margin: 0;
 		padding: 0;
 		margin-top: -7rem;
-		background-color: red;
 		margin-left: 2rem;
 		box-shadow: 0px 0px 38px 0px rgba(0,0,0,0.6);
 	}

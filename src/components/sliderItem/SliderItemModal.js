@@ -6,6 +6,8 @@ import styled from 'styled-components'
 
 import { CloseIcon } from '../../styles/icons'
 
+import { setColor } from '../../styles/styles'
+
 import IconsBar from './IconsBar'
 
 const customStyles = {
@@ -30,7 +32,7 @@ const customStyles = {
 		display: 'flex',
 		flexDirection: 'column',
 		position: 'relative',
-        border: '2px solid darkcyan',
+        border: `2px solid ${setColor.primaryBlue}`,
         backgroundColor: 'ivory',
         paddingLeft: 40,
         paddingRight: 40,
@@ -112,7 +114,7 @@ export default styled(SliderItemModal)`
 
         h6 {
             font-weight: 300;
-            color: darkcyan;
+            color: ${setColor.primaryBlue};
         }
     }
 
@@ -121,7 +123,7 @@ export default styled(SliderItemModal)`
 		scrollbar-width: none;
         -ms-overflow-style: none; /* Internet Explorer 10+ */
         flex-grow: 1;
-        color: #1b1b1b;
+        color: ${setColor.mainGrey};
 
 		::-webkit-scrollbar {
 			display: none;

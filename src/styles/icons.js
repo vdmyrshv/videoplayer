@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react'
-import styled, { keyframes, css } from 'styled-components'
+
+import styled, { keyframes } from 'styled-components'
+import { setColor } from './styles'
 
 import IconContext from '../context/IconContext'
 
@@ -7,23 +9,23 @@ import Tooltip from '@material-ui/core/Tooltip'
 
 const shockwave = keyframes`
   0% {
-    box-shadow: 0 0 2px cyan;
+    box-shadow: 0 0 2px ${setColor.secondaryBlue};
     opacity: 1;
   }
   100% {
     opacity: 0;
-    box-shadow: 0 0 50px darkcyan, inset 0 0 10px cyan;
+    box-shadow: 0 0 50px ${setColor.tertiaryBlue}, inset 0 0 10px ${setColor.secondaryBlue};
 }
 `
 
 const IconDiv = styled.div`
 	background-color: #cdcdcd;
 	padding: ${props => (props.small ? '3px' : '5px')};
-	border: ${props => (props.small ? '1px' : '2px')} darkcyan solid;
+	border: ${props => (props.small ? '1px' : '2px')} ${setColor.primaryBlue} solid;
 	border-radius: 50%;
 	transition: 0.2s;
 	margin: 5px;
-	stroke: ${props => (props.small ? props.iconColor : '#1b1b1b')};
+	stroke: ${props => (props.small ? props.iconColor : `${setColor.mainGrey}`)};
 	stroke-width: ${props => (props.small ? '0' : '1px')};;
 	position: relative;
 	height: ${props => (props.small ? '30px' : '70px')};
@@ -208,7 +210,7 @@ export const CloseIcon = styled(Close)`
 	transition: 0.2s;
 
 	:hover {
-		fill: darkcyan;
+		fill: ${setColor.primaryBlue};
 		transition: 0.2s;
 	}
 `

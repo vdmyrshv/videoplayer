@@ -17,8 +17,8 @@ export default createGlobalStyle`
     }
     body{
         box-sizing: border-box;
-        color: ${setColor.primaryColor};
-        background-color: #1b1b1b;
+        color: ${setColor.lightGrey};
+        background-color: ${setColor.mainGrey};
         padding: 2rem;
         /* imported main global font using tagged template literal */
         ${setFont.main}

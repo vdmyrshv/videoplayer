@@ -7,6 +7,8 @@ import IconsBar from './IconsBar'
 
 import styled from 'styled-components'
 
+import {setColor} from '../../styles/styles'
+
 import SliderItemModal from './SliderItemModal'
 
 import VideoTransition from '../globals/VideoTransition'
@@ -208,7 +210,7 @@ export default styled(SliderItem)`
 		${zoomCharacteristics.zoomLevel}
 		${zoomCharacteristics.zoomSpeed} 
 		z-index: 20;
-		border: 2px solid darkcyan;
+		border: 2px solid ${setColor.primaryBlue};
 		backface-visibility: hidden;
 		transition-delay: 0.4s;
 
