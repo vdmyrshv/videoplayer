@@ -169,7 +169,7 @@ export const CalendarIcon = ({ tooltipTitle }) => (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
-			viewBox='0 0 100 125'
+			viewBox='-7 -7 115 125'
 		>
 			<g transform='translate(0,-952.36218)'>
 				<path
