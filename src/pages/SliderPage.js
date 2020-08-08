@@ -19,6 +19,5 @@ const SliderPage = ({ className }) => {
 }
 
 export default styled(SliderPage)`
-	background-color: black;
-	padding: 2rem;
+
 `

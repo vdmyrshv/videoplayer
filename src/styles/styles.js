@@ -12,7 +12,8 @@ export const setColor = {
 }
 
 export const setFont = {
-	main: "font-family: 'Mulish', serif;",
+	//main: "font-family: 'Mulish', serif;",
+	main: "font-family: 'Noto Sans JP', sans-serif;",
 	slanted: "font-family: 'Courgette', cursive;"
 }
 

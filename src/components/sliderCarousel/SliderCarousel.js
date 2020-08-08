@@ -34,10 +34,9 @@ const responsive = {
 }
 
 const SliderCarousel = ({ data, className }) => {
+	const { name, tile_set: tileset } = data
 
-	const {name, tile_set: tileset} = data
-
-	console.log('EXHIBITOR CONTEXT', data)
+	//console.log('EXHIBITOR CONTEXT', data)
 
 	return (
 		<div className={className}>
@@ -48,16 +47,17 @@ const SliderCarousel = ({ data, className }) => {
 				draggable={false}
 				showDots={false}
 				ssr={true}
-				//infinite={true} 
+				//infinite={true}
 				//removeArrowOnDeviceType={["tablet", "mobile"]}
 				//partialVisible={true}
 				sliderClass='slider'
 				itemClass='item'
 				containerClass='container'
 			>
-				{!!tileset && tileset.map(data => (
-					<SliderItem key={data.id} data={data} />
-				))}
+				{!!tileset &&
+					tileset.map(data => (
+						<SliderItem key={data.id} data={data} />
+					))}
 			</Carousel>
 		</div>
 	)
@@ -66,21 +66,21 @@ const SliderCarousel = ({ data, className }) => {
 export default styled(SliderCarousel)`
 	display: flex;
 	flex-direction: column;
-	background-color: black;
 	color: white;
 
 	h2 {
 		margin-left: 1.5rem;
-
+		font-weight: 300;
+		color: darkcyan;
+		margin-bottom: 4rem;
 	}
 
 	.slider {
 		overflow: visible;
 		margin: 0;
 		padding: 0;
-
+		margin-top: -10rem;
 	}
-	
 
 	.item {
 		height: 250px;
@@ -92,24 +92,21 @@ export default styled(SliderCarousel)`
 		:hover {
 			z-index: 10;
 			transition: z-index 0s 0s;
-			
 		}
 
 		:hover + * {
 			z-index: -2;
 			transition: z-index 0s 0s;
 		}
-		
 
 		:not(:hover) {
 			z-index: -1;
-				
 		}
 	}
 
 	.container {
 		z-index: 0;
-		height: 50vh;
+		height: 30rem;
 		overflow: visible;
 		margin-bottom: 2rem;
 	}

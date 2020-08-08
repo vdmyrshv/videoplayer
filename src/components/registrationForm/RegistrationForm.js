@@ -173,7 +173,6 @@ const RegistrationForm = ({ className }) => {
 export default styled(RegistrationForm)`
 	height: 100%;
 	width: 100vw;
-	background-color: black;
 	color: #d1d1d1;
 	display: flex;
 	flex-direction: column;
@@ -196,9 +195,10 @@ export default styled(RegistrationForm)`
 	}
 
 	input {
-		background-color: black;
+		background-color: inherit;
+		font-family: inherit;
 		outline: none;
-		color: white;
+		color: darkcyan;
 		border: grey 2px solid;
 		border-radius: 2rem;
 		padding: 1rem 2rem;
@@ -219,6 +219,11 @@ export default styled(RegistrationForm)`
 
 	h1 {
 		padding-bottom: 1rem;
+		font-weight: 300;
+	}
+
+	h5 {
+		font-weight: 300;
 	}
 
 	.formItem {
@@ -240,7 +245,7 @@ export default styled(RegistrationForm)`
 	}
 
 	.checkmark:checked + .checkbox-label::before {
-			background-color: green;
+			background-color: darkcyan;
 			z-index: 10;
 			transition: all 0.2s;
 	}

@@ -46,5 +46,5 @@ export default styled(IconsBar)`
 	color: white;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-evenly;
 `

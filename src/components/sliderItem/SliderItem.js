@@ -24,7 +24,7 @@ const setZoomLevel = zoomLevel => {
 }
 
 const SliderItem = ({ className, data }) => {
-	const { company, caption, image } = data
+	const { company, caption, image, company_url } = data
 
 	const [isHovering, setIsHovering] = useState(false)
 	const [isFocused, setIsFocused] = useState(false)
@@ -55,7 +55,7 @@ const SliderItem = ({ className, data }) => {
 			<SliderItemModal
 				modalIsOpen={modalIsOpen}
 				closeModal={closeModal}
-				companyData={{ company, caption, image }}
+				companyData={{ company, caption, image, company_url }}
 			/>
 			<div
 				className={className}
@@ -64,11 +64,14 @@ const SliderItem = ({ className, data }) => {
 					openModal()
 				}}
 				onMouseLeave={() => setIsFocused(false)}
-				style={{
-					backgroundImage: `url("${image}")`
-				}}
 			>
-				{/* {isVideoVisible && (
+				<div
+					className='background'
+					style={{
+						backgroundImage: `url("${image}")`
+					}}
+				>
+					{/* {isVideoVisible && (
 							<ReactPlayer
 								url={videoUrl}
 								playing={isHovering}
@@ -81,15 +84,16 @@ const SliderItem = ({ className, data }) => {
 								muted
 							/>
 						)} */}
-				<h6>{company}</h6>
-				<div className='icons-bar'>
-					<IconsBar
-						handleMouseEnter={handleMouseEnter}
-						handleMouseLeave={handleMouseLeave}
-						iconColor='#a6a6a6'
-						small
-						style={{ right: 0, top: 0, bottom: 0 }}
-					/>
+					<h6>{company}</h6>
+					<div className='icons-bar'>
+						<IconsBar
+							handleMouseEnter={handleMouseEnter}
+							handleMouseLeave={handleMouseLeave}
+							iconColor='#555555'
+							small
+							style={{ right: 0, top: 0, bottom: 0, marginRight: 5 }}
+						/>
+					</div>
 				</div>
 			</div>
 		</>
@@ -103,14 +107,18 @@ export default styled(SliderItem)`
 	position: relative;
 	margin: 20px;
 	transition: all 0.2s;
-	padding: 1rem;
+	padding: 2rem;
 	border: 2px white solid;
 	z-index: 0;
 	background-color: ivory;
 
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
+	.background {
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		height: 100%;
+		width: 100%;
+	}
 
 	.modal {
 		display: flex;
@@ -130,6 +138,7 @@ export default styled(SliderItem)`
 		bottom: -50px;
 		left: 0;
 		right: 0;
+		font-weight: 300;
 	}
 
 	p {
@@ -149,22 +158,12 @@ export default styled(SliderItem)`
 		${zoomCharacteristics.zoomLevel}
 		${zoomCharacteristics.zoomSpeed}
 		z-index: 20;
+		border: 2px solid darkcyan;
 
 		.icons-bar {
 			opacity: 1;
 			transition: 0.2s;
 		}
 
-		/* h5 {
-			top: -50px;
-			left: 0;
-			right: 0;
-			transition: 0.2s;
-		} */
-
-		/* p {
-			opacity: 1;
-			transition: 0.2s;
-		} */
 	}
 `
