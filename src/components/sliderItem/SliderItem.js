@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ReactPlayer from 'react-player'
 
 import truncateString from '../../utils/truncateString'
@@ -24,12 +24,17 @@ const setZoomLevel = zoomLevel => {
 }
 
 const SliderItem = ({ className, data }) => {
-	const { company, caption, image, company_url } = data
+	const sizeRef = useRef()
+
+	const { company, caption, image, company_url, video } = data
 
 	const [isHovering, setIsHovering] = useState(false)
 	const [isFocused, setIsFocused] = useState(false)
 	const [isVideoVisible, setIsVideoVisible] = useState(false)
 	const [modalIsOpen, setModalIsOpen] = useState(false)
+
+	const [containerWidth, setContainerWidth] = useState('340px')
+	const [containerHeight, setContainerHeight] = useState('340px')
 
 	const handleMouseEnter = () => setIsHovering(true)
 	const handleMouseLeave = () => setIsHovering(false)
@@ -44,7 +49,19 @@ const SliderItem = ({ className, data }) => {
 		//console.log('ZOOMSPEED', zoomCharacteristics.zoomSpeed)
 		//console.log('zoomlevel', zoomCharacteristics.zoomLevel)
 	}, [data])
-	console.log('SLIDE DATA', data)
+
+	useEffect(() => {
+		// console.log('WIDTH', sizeRef.current ? sizeRef.current.offsetWidth : 0)
+		if (sizeRef.current) {
+			setContainerWidth(`${sizeRef.current.offsetWidth - 4}px`)
+			setContainerHeight(`${sizeRef.current.offsetHeight - 4}px`)
+		}
+		// console.log(
+		// 	'Height',
+		// 	sizeRef.current ? sizeRef.current.offsetHeight : 0
+		// )
+		//console.log('SIZE REF', sizeRef.current)
+	}, [sizeRef.current])
 
 	const closeModal = () => setModalIsOpen(false)
 
@@ -63,27 +80,39 @@ const SliderItem = ({ className, data }) => {
 					setIsFocused(true)
 					openModal()
 				}}
+				onMouseEnter={() => setIsHovering(true)}
 				onMouseLeave={() => setIsFocused(false)}
+				ref={sizeRef}
 			>
+				{!!video && isHovering && (
+					<ReactPlayer
+						url={video}
+						playing={isHovering}
+						onMouseEnter={handleMouseEnter}
+						onMouseLeave={handleMouseLeave}
+						onClick={() => console.log('clicked!')}
+						height={containerHeight}
+						width={containerWidth}
+						loop
+						muted
+						style={{
+							position: 'absolute',
+							left: 0,
+							right: 0,
+							top: 0,
+							bottom: 0,
+							backfaceVisibility: 'hidden',
+							overflow: 'hidden',
+							backgroundColor: 'black'
+						}}
+					/>
+				)}
 				<div
 					className='background'
 					style={{
 						backgroundImage: `url("${image}")`
 					}}
 				>
-					{/* {isVideoVisible && (
-							<ReactPlayer
-								url={videoUrl}
-								playing={isHovering}
-								onMouseEnter={handleMouseEnter}
-								onMouseLeave={handleMouseLeave}
-								onClick={() => console.log('clicked!')}
-								height='300px'
-								width='450px'
-								loop
-								muted
-							/>
-						)} */}
 					<h6>{company}</h6>
 					<div className='icons-bar'>
 						<IconsBar
@@ -126,6 +155,7 @@ export default styled(SliderItem)`
 		background-size: contain;
 		height: 100%;
 		width: 100%;
+		z-index: 10;
 	}
 
 	.modal {
@@ -138,6 +168,7 @@ export default styled(SliderItem)`
 	.icons-bar {
 		opacity: 0;
 		transition: 0.2s;
+		z-index: 20;
 	}
 
 	h6 {

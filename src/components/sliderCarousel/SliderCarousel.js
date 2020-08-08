@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 
 import styled from 'styled-components'
 
@@ -35,9 +35,8 @@ const responsive = {
 }
 
 const SliderCarousel = ({ data, className }) => {
+	
 	const { name, tile_set: tileset } = data
-
-	//console.log('EXHIBITOR CONTEXT', data)
 
 	return (
 		<div className={className}>

@@ -45,7 +45,7 @@ const SliderItemModal = ({
 	companyData: { image, company, caption, company_url },
 	className
 }) => {
-    console.log('COMPANY DATA', company_url)
+    //console.log('COMPANY DATA', company_url)
 	return (
 		<ReactModal
 			isOpen={modalIsOpen}
