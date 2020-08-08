@@ -61,10 +61,8 @@ const SliderItemModal = ({
 				<h1>{company}</h1>
 				<p>{caption}</p>
 				<IconsBar
-					style
-					iconSize={70}
-					iconColor='red'
-					iconHoverColor='blue'
+					iconSize='70px'
+					iconColor='#cecece'
 					style={{
 						bottom: 0,
 						left: 0,
@@ -83,7 +81,8 @@ export default styled(SliderItemModal)`
 	flex-direction: column;
 	align-items: flex-start;
 	height: 90%;
-	width: 100%;
+    width: 100%;
+    background-color: ivory;
 
 	.close-icon {
 		height: 20px;
@@ -96,7 +95,8 @@ export default styled(SliderItemModal)`
     }
 
 	h1 {
-		padding: 2rem 0;
+        padding: 2rem 0;
+        color: darkgrey;
 	}
 
 	p {

@@ -65,7 +65,7 @@ const SliderItem = ({ className, data }) => {
 				}}
 				onMouseLeave={() => setIsFocused(false)}
 				style={{
-					backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), transparent), url("${image}")`
+					backgroundImage: `url("${image}")`
 				}}
 			>
 				{/* {isVideoVisible && (
@@ -86,8 +86,8 @@ const SliderItem = ({ className, data }) => {
 					<IconsBar
 						handleMouseEnter={handleMouseEnter}
 						handleMouseLeave={handleMouseLeave}
-						iconColor='white'
-						iconSize={35}
+						iconColor='#a6a6a6'
+						small
 						style={{ right: 0, top: 0, bottom: 0 }}
 					/>
 				</div>
@@ -106,7 +106,7 @@ export default styled(SliderItem)`
 	padding: 1rem;
 	border: 2px white solid;
 	z-index: 0;
-	background-color: black;
+	background-color: ivory;
 
 	background-position: center;
 	background-repeat: no-repeat;

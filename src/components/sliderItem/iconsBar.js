@@ -18,11 +18,10 @@ const IconsBar = ({
 	handleMouseEnter,
 	handleMouseLeave,
 	style,
-	iconSize,
+	small,
 	iconColor,
-	iconHoverColor='red'
+	iconHoverColor = 'red'
 }) => {
-	
 	return (
 		<div
 			className={className}
@@ -30,13 +29,13 @@ const IconsBar = ({
 			onMouseLeave={handleMouseLeave}
 			style={style}
 		>
-			<IconContext.Provider value={{ iconSize, iconColor, iconHoverColor }}>
-				<PhoneIcon iconSize={iconSize} />
-				<IdIcon iconSize={iconSize} />
-				<GiftIcon iconSize={iconSize} />
-				<ArrowIcon iconSize={iconSize} />
-				<ChatIcon iconSize={iconSize} />
-				<CalendarIcon iconSize={iconSize} />
+			<IconContext.Provider value={{ small, iconColor, iconHoverColor }}>
+				<PhoneIcon />
+				<IdIcon />
+				<GiftIcon />
+				<ArrowIcon />
+				<ChatIcon />
+				<CalendarIcon />
 			</IconContext.Provider>
 		</div>
 	)

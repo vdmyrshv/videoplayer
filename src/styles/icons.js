@@ -1,33 +1,92 @@
 import React, { useContext, useState } from 'react'
-import styled from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 
 import IconContext from '../context/IconContext'
 
-const IconsContainer = ({ className, children, tooltip }) => {
-	const { iconSize, iconColor, iconHoverColor } = useContext(IconContext)
+const shockwave = keyframes`
+  0% {
+    box-shadow: 0 0 2px cyan;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    box-shadow: 0 0 50px darkcyan, inset 0 0 10px cyan;
+}
+`
+
+const IconDiv = styled.div`
+	background-color: #a6a6a6;
+	padding: ${props => props.small ? '3px' : '5px'};
+	border: ${props => props.small ? '1px' : '2px'} darkcyan solid;
+	border-radius: 50%;
+	transition: 0.2s;
+	margin: 5px;
+	stroke: darkcyan;
+	stroke-width: 3px;
+	position: relative;
+	height: ${props => props.small ? '30px' : '70px'};
+	width: ${props => props.small ? '30px' : '70px'};
+	fill: ${props => props.iconColor};
+
+	:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		border-radius: 50%;
+		text-align: center;
+		height: ${props => props.small ? '28px' : '68px'};
+		width: ${props => props.small ? '28px' : '68px'};
+	}
+
+	:hover:before {
+		animation: ${shockwave} 1s ease-in infinite;
+	}
+`
+
+const StyledIconsContainer = ({ children, tooltip }) => {
+	const { small, iconColor, iconHoverColor } = useContext(IconContext)
 	const [isHover, setIsHover] = useState(false)
 	return (
-		<div
-			className={className}
-			style={{ fill: isHover ? iconHoverColor : iconColor, height: iconSize, width: iconSize }}
+		<IconDiv
+			small={!!small}
+			iconColor={iconColor}
 			onMouseEnter={() => setIsHover(true)}
 			onMouseLeave={() => setIsHover(false)}
 		>
 			{children}
-		</div>
+		</IconDiv>
 	)
 }
 
-const StyledIconsContainer = styled(IconsContainer)`
-	transition: 0.2s;
-	padding: 5px;
-	margin: 0 5px;
+// const StyledIconsContainer = styled(IconsContainer)`
+// 	background-color: #e3e3e3;
+// 	border: 1px darkcyan solid;
+// 	border-radius: 50%;
+// 	transition: 0.2s;
+// 	margin: 5px;
+// 	stroke: darkcyan;
+// 	position: relative;
+// 	z-index: 0;
+// 	backface-visibility: hidden;
 
-	:hover {
-		transform: scale(1.2);
-		fill: rgb(26, 59, 103);
-	}
-`
+// 	:before {
+// 		content: '';
+// 		position: absolute;
+// 		top: 0;
+// 		left: 0;
+// 		display: block;
+// 		border-radius: 50%;
+// 		height: 35px;
+// 		width: 35px;
+// 		text-align: center;
+// 	}
+
+// 	:hover:before {
+// 		animation: ${shockwave} 1s ease-in infinite;
+// 	}
+// `
 
 export const PhoneIcon = () => (
 	<StyledIconsContainer tooltip='phone'>
@@ -143,6 +202,6 @@ const Close = ({ className }) => {
 }
 
 export const CloseIcon = styled(Close)`
-	fill: red;
+	fill: black;
 	cursor: pointer;
 `
