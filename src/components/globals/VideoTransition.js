@@ -14,8 +14,8 @@ const VideoTransition = ({ children, trigger, timeout, duration }) => {
 	const transitionStyles = {
 		entering: { opacity: 1 },
 		entered: { opacity: 1 },
-		exiting: { opacity: 0 },
-		exited: { opacity: 0 }
+		exiting: { opacity: 0, transitionDelay: '0s' },
+		exited: { opacity: 0, transitionDelay: '0s' }
 	}
 	return (
 		<Transition in={trigger} timeout={timeout}>

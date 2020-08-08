@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 
 import styled from 'styled-components'
 
@@ -34,7 +34,7 @@ const responsive = {
 	}
 }
 
-const SliderCarousel = ({ data, className }) => {
+const SliderCarousel = ({ data, className, windowDimensions }) => {
 	
 	const { name, tile_set: tileset } = data
 
@@ -57,7 +57,7 @@ const SliderCarousel = ({ data, className }) => {
 			>
 				{!!tileset &&
 					tileset.map(data => (
-						<SliderItem key={data.id} data={data} />
+						<SliderItem key={data.id} data={data} windowDimensions={windowDimensions} />
 					))}
 			</Carousel>
 		</div>

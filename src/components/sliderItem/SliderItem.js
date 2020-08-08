@@ -9,7 +9,6 @@ import styled from 'styled-components'
 
 import SliderItemModal from './SliderItemModal'
 
-import { Transition } from 'react-transition-group'
 import VideoTransition from '../globals/VideoTransition'
 
 let zoomCharacteristics = {
@@ -26,7 +25,7 @@ const setZoomLevel = zoomLevel => {
 	return `transform: scale(${cssZoomLevel});`
 }
 
-const SliderItem = ({ className, data }) => {
+const SliderItem = ({ className, data, windowDimensions }) => {
 	const sizeRef = useRef()
 
 	const { company, caption, image, company_url, video } = data
@@ -41,9 +40,11 @@ const SliderItem = ({ className, data }) => {
 
 	const handleMouseEnter = () => setIsHovering(true)
 	const handleMouseLeave = () => setIsHovering(false)
+
 	useEffect(() => {
 		console.log(isFocused)
 	}, [isFocused])
+
 	const truncatedCaption = truncateString(caption, 120)
 
 	useEffect(() => {
@@ -59,7 +60,8 @@ const SliderItem = ({ className, data }) => {
 			setContainerWidth(`${sizeRef.current.offsetWidth - 4}px`)
 			setContainerHeight(`${sizeRef.current.offsetHeight - 4}px`)
 		}
-	}, [sizeRef.current])
+		//******************FIX BELOW TO DEBOUNCED**************************************
+	}, [sizeRef.current, windowDimensions])
 
 	const closeModal = () => setModalIsOpen(false)
 
@@ -207,7 +209,7 @@ export default styled(SliderItem)`
 		z-index: 20;
 		border: 2px solid darkcyan;
 		backface-visibility: hidden;
-		transition-delay: .4s;
+		transition-delay: 0.4s;
 
 		.icons-bar {
 			opacity: 1;
