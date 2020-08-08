@@ -9,6 +9,9 @@ import styled from 'styled-components'
 
 import SliderItemModal from './SliderItemModal'
 
+import { Transition } from 'react-transition-group'
+import VideoTransition from '../globals/VideoTransition'
+
 let zoomCharacteristics = {
 	zoomSpeed: `transition: 2s;`,
 	zoomLevel: `transform: scale(1.5);`
@@ -56,11 +59,6 @@ const SliderItem = ({ className, data }) => {
 			setContainerWidth(`${sizeRef.current.offsetWidth - 4}px`)
 			setContainerHeight(`${sizeRef.current.offsetHeight - 4}px`)
 		}
-		// console.log(
-		// 	'Height',
-		// 	sizeRef.current ? sizeRef.current.offsetHeight : 0
-		// )
-		//console.log('SIZE REF', sizeRef.current)
 	}, [sizeRef.current])
 
 	const closeModal = () => setModalIsOpen(false)
@@ -84,28 +82,38 @@ const SliderItem = ({ className, data }) => {
 				onMouseLeave={() => setIsFocused(false)}
 				ref={sizeRef}
 			>
-				{!!video && isHovering && (
-					<ReactPlayer
-						url={video}
-						playing={isHovering}
-						onMouseEnter={handleMouseEnter}
-						onMouseLeave={handleMouseLeave}
-						onClick={() => console.log('clicked!')}
-						height={containerHeight}
-						width={containerWidth}
-						loop
-						muted
-						style={{
-							position: 'absolute',
-							left: 0,
-							right: 0,
-							top: 0,
-							bottom: 0,
-							backfaceVisibility: 'hidden',
-							overflow: 'hidden',
-							backgroundColor: 'black'
+				{!!video && (
+					<VideoTransition
+						trigger={isHovering}
+						duration={600}
+						timeout={500}
+					>
+						{({ defaultStyle, transitionStyles, state }) => {
+							return (
+								<ReactPlayer
+									url={video}
+									playing={isHovering}
+									onMouseEnter={handleMouseEnter}
+									onMouseLeave={handleMouseLeave}
+									onClick={() => console.log('clicked!')}
+									height={containerHeight}
+									width={containerWidth}
+									loop
+									muted
+									style={{
+										position: 'absolute',
+										left: 0,
+										right: 0,
+										top: 0,
+										bottom: 0,
+										backgroundColor: 'black',
+										...defaultStyle,
+										...transitionStyles[state]
+									}}
+								/>
+							)
 						}}
-					/>
+					</VideoTransition>
 				)}
 				<div
 					className='background'
@@ -199,6 +207,7 @@ export default styled(SliderItem)`
 		z-index: 20;
 		border: 2px solid darkcyan;
 		backface-visibility: hidden;
+		transition-delay: .4s;
 
 		.icons-bar {
 			opacity: 1;
