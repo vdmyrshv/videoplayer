@@ -32,7 +32,6 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 
 	const [isHovering, setIsHovering] = useState(false)
 	const [isFocused, setIsFocused] = useState(false)
-	const [isVideoVisible, setIsVideoVisible] = useState(false)
 	const [modalIsOpen, setModalIsOpen] = useState(false)
 
 	const [containerWidth, setContainerWidth] = useState('340px')
@@ -188,6 +187,8 @@ export default styled(SliderItem)`
 		left: 0;
 		right: 0;
 		font-weight: 300;
+		/* pointer-events:none; excludes hover */
+		pointer-events: none;
 	}
 
 	p {
