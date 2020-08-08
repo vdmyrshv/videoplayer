@@ -90,8 +90,17 @@ const SliderItem = ({ className, data }) => {
 							handleMouseEnter={handleMouseEnter}
 							handleMouseLeave={handleMouseLeave}
 							iconColor='#555555'
+							tooltipFontSize={14}
+							tooltipPlacement='right'
 							small
-							style={{ right: 0, top: 0, bottom: 0, marginRight: 5 }}
+							style={{
+								right: 0,
+								top: 0,
+								bottom: 0,
+								marginRight: 5,
+								position: 'absolute',
+								flexDirection: 'column'
+							}}
 						/>
 					</div>
 				</div>
@@ -156,14 +165,14 @@ export default styled(SliderItem)`
 
 	:hover {
 		${zoomCharacteristics.zoomLevel}
-		${zoomCharacteristics.zoomSpeed}
+		${zoomCharacteristics.zoomSpeed} 
 		z-index: 20;
 		border: 2px solid darkcyan;
+		backface-visibility: hidden;
 
 		.icons-bar {
 			opacity: 1;
 			transition: 0.2s;
 		}
-
 	}
 `

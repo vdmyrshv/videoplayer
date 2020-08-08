@@ -26,14 +26,15 @@ const customStyles = {
 		right: 'auto',
 		bottom: 'auto',
 		borderRadius: 0,
-		border: 'none',
 		outline: 'none',
 		display: 'flex',
 		flexDirection: 'column',
 		position: 'relative',
-        overflow: 'hidden',
         border: '2px solid darkcyan',
-        backgroundColor: 'ivory'
+        backgroundColor: 'ivory',
+        paddingLeft: 40,
+        paddingRight: 40,
+        position: 'relative',
 	}
 }
 
@@ -62,17 +63,15 @@ const SliderItemModal = ({
 					/>
 				</div>
 				<h1>{company}</h1>
-                <a href={company_url}><h6>View Site</h6></a>
+                <a href={company_url} target='_blank'><h6>View Site</h6></a>
 				<p>{caption}</p>
 				<IconsBar
 					iconSize='70px'
 					iconColor='#1b1b1b'
 					style={{
-						bottom: 0,
-						left: 0,
-						right: 0,
 						flexDirection: 'row',
-                        marginBottom: 10
+                        alignSelf: 'stretch',
+                        paddingTop: 10
 					}}
 				/>
 			</div>
@@ -84,13 +83,17 @@ export default styled(SliderItemModal)`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	height: 90%;
+	height: 100%;
     width: 100%;
+    backface-visibility: hidden;
 
 	.close-icon {
 		height: 20px;
 		width: 20px;
-		align-self: flex-end;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        
     }
     
     .image {
@@ -98,7 +101,7 @@ export default styled(SliderItemModal)`
     }
 
 	h1 {
-        padding: 2rem 0 1rem 0;
+        padding: 1rem 0;
         color: darkgrey;
         font-weight: 200;
     }
@@ -113,10 +116,11 @@ export default styled(SliderItemModal)`
     }
 
 	p {
-		height: 40%;
 		overflow-y: scroll;
 		scrollbar-width: none;
-		-ms-overflow-style: none; /* Internet Explorer 10+ */
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+        flex-grow: 1;
+        color: #1b1b1b;
 
 		::-webkit-scrollbar {
 			display: none;

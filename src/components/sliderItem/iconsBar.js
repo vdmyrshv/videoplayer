@@ -9,8 +9,6 @@ import {
 	CalendarIcon
 } from '../../styles/icons'
 
-import ReactTooltip from 'react-tooltip'
-
 import IconContext from '../../context/IconContext'
 
 const IconsBar = ({
@@ -20,7 +18,10 @@ const IconsBar = ({
 	style,
 	small,
 	iconColor,
-	iconHoverColor = 'red'
+	iconHoverColor,
+	tooltipDelay = 200,
+	tooltipPlacement = 'bottom',
+	tooltipFontSize = 14
 }) => {
 	return (
 		<div
@@ -29,22 +30,28 @@ const IconsBar = ({
 			onMouseLeave={handleMouseLeave}
 			style={style}
 		>
-			<IconContext.Provider value={{ small, iconColor, iconHoverColor }}>
-				<PhoneIcon />
-				<IdIcon />
-				<GiftIcon />
-				<ArrowIcon />
-				<ChatIcon />
-				<CalendarIcon />
+			<IconContext.Provider
+				value={{
+					small,
+					iconColor,
+					iconHoverColor,
+					tooltipDelay,
+					tooltipPlacement,
+					tooltipFontSize
+				}}
+			>
+				<PhoneIcon tooltipTitle='call to find out more' />
+				<IdIcon tooltipTitle='drop a business card' />
+				<GiftIcon tooltipTitle='drop some swag' />
+				<ArrowIcon tooltipTitle='go to site' />
+				<ChatIcon tooltipTitle='chat with a representative' />
+				<CalendarIcon tooltipTitle='book a meeting' />
 			</IconContext.Provider>
 		</div>
 	)
 }
 
 export default styled(IconsBar)`
-	position: absolute;
-	color: white;
 	display: flex;
-	flex-direction: column;
 	justify-content: space-evenly;
 `

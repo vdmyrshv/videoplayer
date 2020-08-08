@@ -8,6 +8,7 @@ import ExhibitorContext from '../../context/ExhibitorContext'
 
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
+import CustomRightArrow from '../globals/CustomRightArrow'
 
 const responsive = {
 	superLargeDesktop: {
@@ -53,6 +54,7 @@ const SliderCarousel = ({ data, className }) => {
 				sliderClass='slider'
 				itemClass='item'
 				containerClass='container'
+				//customRightArrow={<CustomRightArrow />}
 			>
 				{!!tileset &&
 					tileset.map(data => (

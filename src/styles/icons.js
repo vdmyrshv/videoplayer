@@ -3,6 +3,8 @@ import styled, { keyframes, css } from 'styled-components'
 
 import IconContext from '../context/IconContext'
 
+import Tooltip from '@material-ui/core/Tooltip'
+
 const shockwave = keyframes`
   0% {
     box-shadow: 0 0 2px cyan;
@@ -21,8 +23,8 @@ const IconDiv = styled.div`
 	border-radius: 50%;
 	transition: 0.2s;
 	margin: 5px;
-	stroke: ${props => (props.small ? props.iconColor : 'darkcyan')};
-	stroke-width: 3px;
+	stroke: ${props => (props.small ? props.iconColor : '#1b1b1b')};
+	stroke-width: ${props => (props.small ? '0' : '1px')};;
 	position: relative;
 	height: ${props => (props.small ? '30px' : '70px')};
 	width: ${props => (props.small ? '30px' : '70px')};
@@ -30,7 +32,7 @@ const IconDiv = styled.div`
 
 	:hover {
 		transform: scale(1.1);
-		transition: all .2s;
+		transition: all 0.2s;
 	}
 
 	:before {
@@ -43,7 +45,7 @@ const IconDiv = styled.div`
 		text-align: center;
 		height: ${props => (props.small ? '28px' : '68px')};
 		width: ${props => (props.small ? '28px' : '68px')};
-		transition: all .2s;
+		transition: all 0.2s;
 	}
 
 	:hover:before {
@@ -52,27 +54,47 @@ const IconDiv = styled.div`
 
 	:active {
 		transform: scale(1.2);
-		transition: all .2s;
+		transition: all 0.2s;
 	}
 `
 
-const StyledIconsContainer = ({ children, tooltip }) => {
-	const { small, iconColor, iconHoverColor } = useContext(IconContext)
+const IconsContainer = ({ children, tooltipTitle }) => {
+	const {
+		small,
+		iconColor,
+		iconHoverColor,
+		tooltipDelay,
+		tooltipPlacement,
+		tooltipFontSize
+	} = useContext(IconContext)
 	const [isHover, setIsHover] = useState(false)
 	return (
-		<IconDiv
-			small={!!small}
-			iconColor={iconColor}
-			onMouseEnter={() => setIsHover(true)}
-			onMouseLeave={() => setIsHover(false)}
+		<Tooltip
+			title={
+				<h1 style={{ fontSize: tooltipFontSize, color: 'white', fontFamily: 'Noto Sans JP', fontWeight: 300 }}>
+					{tooltipTitle}
+				</h1>
+			}
+			placement={tooltipPlacement}
+			arrow
+			enterDelay={tooltipDelay}
 		>
-			{children}
-		</IconDiv>
+			<IconDiv
+				small={!!small}
+				iconColor={iconColor}
+				onMouseEnter={() => setIsHover(true)}
+				onMouseLeave={() => setIsHover(false)}
+			>
+				{children}
+			</IconDiv>
+		</Tooltip>
 	)
 }
 
-export const PhoneIcon = () => (
-	<StyledIconsContainer tooltip='phone'>
+const StyledIconsContainer = styled(IconsContainer)``
+
+export const PhoneIcon = ({ tooltipTitle }) => (
+	<StyledIconsContainer tooltipTitle={tooltipTitle}>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -83,8 +105,8 @@ export const PhoneIcon = () => (
 	</StyledIconsContainer>
 )
 
-export const IdIcon = () => (
-	<StyledIconsContainer tooltip='id'>
+export const IdIcon = ({ tooltipTitle }) => (
+	<StyledIconsContainer tooltipTitle={tooltipTitle}>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -95,8 +117,8 @@ export const IdIcon = () => (
 		</svg>
 	</StyledIconsContainer>
 )
-export const GiftIcon = () => (
-	<StyledIconsContainer tooltip='gift'>
+export const GiftIcon = ({ tooltipTitle }) => (
+	<StyledIconsContainer tooltipTitle={tooltipTitle}>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -112,8 +134,8 @@ export const GiftIcon = () => (
 	</StyledIconsContainer>
 )
 
-export const ArrowIcon = () => (
-	<StyledIconsContainer tooltip='arrow'>
+export const ArrowIcon = ({ tooltipTitle }) => (
+	<StyledIconsContainer tooltipTitle={tooltipTitle}>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -124,8 +146,8 @@ export const ArrowIcon = () => (
 	</StyledIconsContainer>
 )
 
-export const ChatIcon = () => (
-	<StyledIconsContainer tooltip='chat'>
+export const ChatIcon = ({ tooltipTitle }) => (
+	<StyledIconsContainer tooltipTitle={tooltipTitle}>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -142,8 +164,8 @@ export const ChatIcon = () => (
 	</StyledIconsContainer>
 )
 
-export const CalendarIcon = () => (
-	<StyledIconsContainer tooltip='calendar'>
+export const CalendarIcon = ({ tooltipTitle }) => (
+	<StyledIconsContainer tooltipTitle={tooltipTitle}>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -183,4 +205,10 @@ const Close = ({ className }) => {
 export const CloseIcon = styled(Close)`
 	fill: #a5a5a5;
 	cursor: pointer;
+	transition: 0.2s;
+
+	:hover {
+		fill: darkcyan;
+		transition: 0.2s;
+	}
 `

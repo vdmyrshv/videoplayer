@@ -19,5 +19,5 @@ const SliderPage = ({ className }) => {
 }
 
 export default styled(SliderPage)`
-
+	/* overflow-x: hidden; */
 `
