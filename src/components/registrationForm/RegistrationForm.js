@@ -15,6 +15,7 @@ import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
 
 import RegistrationButton from '../globals/RegistrationButton'
+import RegistrationInput from '../globals/RegistrationInput'
 
 const RegistrationForm = ({ className }) => {
 	const { state, setUser } = useContext(UserContext)
@@ -32,7 +33,8 @@ const RegistrationForm = ({ className }) => {
 	}, [state])
 
 	useEffectAfterMount(() => {
-		emailChecker()
+		if (email) emailChecker()
+		if (!email) setUserMatch(undefined)
 		return () => emailChecker.cancel()
 	}, [email])
 
@@ -87,23 +89,18 @@ const RegistrationForm = ({ className }) => {
 					{/* <label htmlFor='email' className='formLabel'>
 						Email/Username
 					</label> */}
-					<input
+					<RegistrationInput
 						type='email'
 						name='email'
 						id='email'
 						placeholder='enter your email'
 						value={email}
-						onChange={e => setEmail(e.target.value)}
-						style={{
-							borderColor:
-								userMatch === true
-									? 'green'
-									: userMatch === false
-									? 'red'
-									: 'inherit'
+						onChange={e => {
+							setEmail(e.target.value)
 						}}
+						userMatch={userMatch}
 						onBlur={e => {
-							if (!email) e.target.style.borderColor = 'grey'
+							if (!e.target.value) setUserMatch(undefined)
 						}}
 					/>
 				</div>
@@ -111,7 +108,7 @@ const RegistrationForm = ({ className }) => {
 					{/* <label className='formLabel' htmlFor='username'>
 						Screen Name
 					</label> */}
-					<input
+					<RegistrationInput
 						type='text'
 						name='username'
 						id='username'
@@ -208,24 +205,6 @@ export default styled(RegistrationForm)`
 
 	.formLabel {
 		margin-bottom: 1rem;
-	}
-
-	input {
-		background-color: inherit;
-		font-family: inherit;
-		outline: none;
-		color: ${setColor.primaryBlue};
-		border: grey 2px solid;
-		border-radius: 10rem;
-		padding: 1rem 2rem;
-		font-size: 2rem;
-		::placeholder {
-			color: grey;
-		}
-
-		:focus {
-			border-color: ${setColor.secondaryBlue}
-		}
 	}
 
 	img {

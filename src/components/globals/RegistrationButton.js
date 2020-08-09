@@ -24,7 +24,6 @@ width: 20rem;
     transition: all .2s;
     outline: none;
     backface-visibility: hidden;
-    align-self: center;
 
 	:hover {
 		box-shadow: none;
