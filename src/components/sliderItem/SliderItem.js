@@ -58,10 +58,10 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 	useEffect(() => {
 		// console.log('WIDTH', sizeRef.current ? sizeRef.current.offsetWidth : 0)
 		if (sizeRef.current) {
-			setContainerWidth(`${sizeRef.current.offsetWidth - 4}px`)
-			setContainerHeight(`${sizeRef.current.offsetHeight - 4}px`)
+			setContainerWidth(`${sizeRef.current.offsetWidth}px`)
+			setContainerHeight(`${sizeRef.current.offsetHeight}px`)
 		}
-		//******************FIX BELOW TO DEBOUNCED**************************************
+
 	}, [sizeRef.current, windowDimensions])
 
 	const closeModal = () => setModalIsOpen(false)
@@ -110,6 +110,8 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 										top: 0,
 										bottom: 0,
 										backgroundColor: 'black',
+										overflow: 'hidden',
+										backfaceVisibility: 'hidden',
 										...defaultStyle,
 										...transitionStyles[state]
 									}}
@@ -154,9 +156,8 @@ export default styled(SliderItem)`
 	width: 100%;
 	transition: 0.2s all;
 	position: relative;
-	transition: all 0.2s;
 	padding: 2rem;
-	border: 2px white solid;
+	/* border: 2px white solid; */
 	z-index: 0;
 	background-color: ivory;
 
@@ -210,7 +211,7 @@ export default styled(SliderItem)`
 		${zoomCharacteristics.zoomLevel}
 		${zoomCharacteristics.zoomSpeed} 
 		z-index: 20;
-		border: 2px solid ${setColor.primaryBlue};
+		/* border: 2px solid ${setColor.primaryBlue}; */
 		backface-visibility: hidden;
 		transition-delay: 0.4s;
 

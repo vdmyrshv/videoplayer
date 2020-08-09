@@ -25,6 +25,8 @@ width: 20rem;
     outline: none;
     backface-visibility: hidden;
 	align-self: center;
+	/* disable highlight */
+	user-select: none; 
 
 	:hover {
 		box-shadow: none;

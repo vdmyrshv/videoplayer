@@ -90,7 +90,7 @@ export default styled(SliderCarousel)`
 	.item {
 		height: 250px;
 		margin: 0;
-		padding: 0;
+		padding: 0 3px;
 		overflow: visible;
 		transition: z-index 0s 0.5s;
 
