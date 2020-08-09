@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 import { setColor } from '../../styles/styles'
+import { SigninIcon, SignupIcon, ExhibitorIcon } from '../../styles/icons'
 
 import { Context as UserContext } from '../../context/UserContext'
 
@@ -76,38 +78,67 @@ const RegistrationForm = ({ className }) => {
 				<img src={require('../../assets/SHRM.png')} alt='SHRM Logo' />
 			</div>
 			<h1>Welcome to the expo hall!</h1>
+			<h5>Please enter your information below</h5>
+			<section>
+				<div className='instruction-box'>
+					<div className='item'>
+						<div className='item-icon'>
+							<SigninIcon />
+						</div>
+						<div className='item-text'>
+							Already registered? <br/> Enter your registration email to
+							gain access.
+						</div>
+					</div>
+					<div className='item'>
+						<div className='item-icon'>
+							<SignupIcon />
+						</div>
+						<div className='item-text'>
+							First time here? <br/> Fill out the information below.
+						</div>
+					</div>
+					<div className='item'>
+						<div className='item-icon'>
+							<ExhibitorIcon />
+						</div>
+						<div className='item-text'>
+							<p className='redirect'>
+								Are you an exhibitor? <br/>
+								<Link to='/exhibitors'>
+									<span>Click Here </span>
+								</Link>
+								for the exhibitor portal
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
 			<form>
-				<h5>Please enter your information below</h5>
-
-				<p>
-					If you've already registered, enter your registration email
-					to gain access. If you have not yet registered, please fill
-					out your information for the exhibitors.
-				</p>
-
 				<div className='formItem'>
-					{/* <label htmlFor='email' className='formLabel'>
-						Email/Username
-					</label> */}
+					<label htmlFor='email' className='formLabel'>
+						Please enter your email:
+					</label>
 					<RegistrationInput
+						emailField
 						type='email'
 						name='email'
 						id='email'
-						placeholder='enter your email'
+						placeholder='email'
 						value={email}
 						onChange={e => {
 							setEmail(e.target.value)
 						}}
 						userMatch={userMatch}
-						onBlur={e => {
-							if (!e.target.value) setUserMatch(undefined)
+						onBlur={() => {
+							if (!email) setUserMatch(undefined)
 						}}
 					/>
 				</div>
-				<div className='formItem'>
-					{/* <label className='formLabel' htmlFor='username'>
-						Screen Name
-					</label> */}
+				<div className='formItem email'>
+					<label className='formLabel' htmlFor='username'>
+						Choose a screen name:
+					</label>
 					<RegistrationInput
 						type='text'
 						name='username'
@@ -169,7 +200,6 @@ const RegistrationForm = ({ className }) => {
 						className='checkmark'
 					/>
 					<label for='acceptPrivacy' className='checkbox-label'>
-						{' '}
 						Accept privacy
 					</label>
 				</div>
@@ -183,28 +213,70 @@ const RegistrationForm = ({ className }) => {
 
 export default styled(RegistrationForm)`
 	height: 100%;
-	width: 100vw;
+	width: 40vw;
 	color: #d1d1d1;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	justify-content: flex-start;
 	padding: 2rem;
 	font-weight: 300;
+	margin: 0 auto;
+
+	section {
+		margin-bottom: 2rem;
+	}
 
 	form {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
-		width: 50rem;
+		align-items: flex-start;
 
-		& > div {
+		> div {
 			margin-bottom: 2rem;
+		}
+	}
+
+	.instruction-box {
+		display: flex;
+		flex-direction: column;
+
+		.item {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+
+			:not(:last-child) {
+				margin-bottom: 2rem;
+			}
+
+			.item-icon {
+				height: 6rem;
+				width: 6rem;
+				fill: ${setColor.primaryBlue};
+				padding: 0.5rem;
+			}
+
+			.item-text {
+				font-size: 1.6rem;
+				margin-left: 1rem;
+				letter-spacing: 1.2px;
+			}
+
+			.redirect {
+				padding-top: .2rem;
+				a {
+					text-decoration: none;
+					color: ${setColor.primaryBlue};
+					font-weight: bold;
+				}
+			}
 		}
 	}
 
 	.formLabel {
 		margin-bottom: 1rem;
+		color: ${setColor.primaryBlue};
 	}
 
 	img {
@@ -233,42 +305,11 @@ export default styled(RegistrationForm)`
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-	}
-
-	.checkbox {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
 		position: relative;
-		margin-left: 15px;
 	}
 
-	.checkmark {
-		visibility: hidden;
-	}
-
-	.checkmark:checked + .checkbox-label::before {
-		background-color: ${setColor.secondaryBlue};
-		z-index: 10;
-		transition: all 0.2s;
-	}
-
-	.checkbox-label {
-		::before {
-			height: 2rem;
-			width: 2rem;
-			content: '';
-			display: block;
-			position: absolute;
-			left: -15px;
-			top: 50%;
-			transform: translateY(-50%);
-			background-color: ${setColor.mainGrey};
-			border: 2px ${setColor.secondaryBlue} solid;
-			border-radius: 5px;
-			z-index: 10;
-			transition: all 0.2s;
-		}
+	.email-valid-notification {
+		display: inline;
 	}
 
 	.toggle {
@@ -283,6 +324,44 @@ export default styled(RegistrationForm)`
 
 	.toggleClass.react-toggle:hover:not(.react-toggle--disabled)
 		.react-toggle-track {
-		background-color: ${setColor.secondaryBlue};
+		background-color: ${setColor.primaryBlue};
+	}
+
+	.checkbox {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		position: relative;
+		margin-left: 15px;
+	}
+
+	.checkbox-label {
+		font-size: 1.2rem;
+		letter-spacing: 1.2px;
+		::before {
+			height: 2rem;
+			width: 2rem;
+			content: '';
+			display: block;
+			position: absolute;
+			left: -15px;
+			top: 50%;
+			transform: translateY(-50%);
+			background-color: ${setColor.mainGrey};
+			border: 2px ${setColor.primaryBlue} solid;
+			border-radius: 5px;
+			z-index: 10;
+			transition: all 0.2s;
+		}
+	}
+
+	.checkmark {
+		visibility: hidden;
+	}
+
+	.checkmark:checked + .checkbox-label::before {
+		background-color: ${setColor.primaryBlue};
+		z-index: 10;
+		transition: all 0.2s;
 	}
 `

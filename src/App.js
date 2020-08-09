@@ -43,6 +43,7 @@ const App = ({ className }) => {
 							<Route exact path='/'>
 								<RegistrationForm />
 							</Route>
+							<Route path='/exhibitors' render={props => <div><h1>Exhibitors</h1></div>} />
 							<Route path='/slides'>
 								<SliderPage />
 							</Route>

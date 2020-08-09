@@ -12,7 +12,7 @@ width: 20rem;
 	padding: 0.5rem 3rem;
 	color: ${setColor.primaryBlue};
 	/* box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5); */
-	border: solid 3px transparent;
+	border: solid 2px transparent;
 	background-image: linear-gradient(
 			rgba(255, 255, 255, 0),
 			rgba(255, 255, 255, 0)
@@ -24,6 +24,7 @@ width: 20rem;
     transition: all .2s;
     outline: none;
     backface-visibility: hidden;
+	align-self: center;
 
 	:hover {
 		box-shadow: none;

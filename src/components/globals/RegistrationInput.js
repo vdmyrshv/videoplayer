@@ -1,6 +1,21 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { setColor } from '../../styles/styles'
+
+const emailMixin = css`
+	border-color: ${props =>
+		props.userMatch === true
+			? 'green'
+			: props.userMatch === false
+			? 'red'
+			: `${setColor.primaryBlue}`};
+`
+const borderColorMixin = css`
+	${props =>
+		props.emailField
+			? emailMixin
+			: `border-color: ${setColor.primaryBlue};`}
+`
 
 const RegistrationInput = styled.input`
 	background-color: inherit;
@@ -8,10 +23,12 @@ const RegistrationInput = styled.input`
 	outline: none;
 	color: ${setColor.primaryBlue};
 	border: 2px solid;
-    border-color: ${props => (props.userMatch ? 'green' : 'red')};
+	${borderColorMixin}
 	border-radius: 10rem;
 	padding: 1rem 2rem;
 	font-size: 2rem;
+    position: relative;
+
 	::placeholder {
 		color: grey;
 	}
@@ -21,7 +38,7 @@ const RegistrationInput = styled.input`
 	}
 
 	:focus {
-        border-color: ${props => (props.userMatch === true ? 'green' : props.userMatch === false ?'red' : `${setColor.secondaryBlue}`)};
+        ${borderColorMixin}
 	}
 `
 
