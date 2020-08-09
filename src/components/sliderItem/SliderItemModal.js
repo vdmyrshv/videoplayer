@@ -32,7 +32,6 @@ const customStyles = {
 		display: 'flex',
 		flexDirection: 'column',
 		position: 'relative',
-        border: `2px solid ${setColor.primaryBlue}`,
         backgroundColor: 'ivory',
         paddingLeft: 40,
         paddingRight: 40,

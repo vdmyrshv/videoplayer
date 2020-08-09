@@ -31,6 +31,7 @@ const SliderPage = ({ className }) => {
 
 	return (
 		<div className={className}>
+			<h1>Expo Hall</h1>
 			{!!exhibitors &&
 				exhibitors.map(exhibitor => (
 					<SliderCarousel
@@ -45,4 +46,9 @@ const SliderPage = ({ className }) => {
 
 export default styled(SliderPage)`
 	overflow-x: hidden;
+
+	h1 {
+		font-weight: 300;
+		text-align: center;
+	}
 `

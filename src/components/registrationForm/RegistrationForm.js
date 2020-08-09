@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
+
+import queryString from 'query-string'
 
 import styled from 'styled-components'
 import { setColor } from '../../styles/styles'
@@ -20,13 +22,23 @@ import RegistrationButton from '../globals/RegistrationButton'
 import RegistrationInput from '../globals/RegistrationInput'
 
 const RegistrationForm = ({ className }) => {
+	const location = useLocation()
+	const history = useHistory()
+
 	const { state, setUser } = useContext(UserContext)
+
 	const [email, setEmail] = useState('')
 	const [screenName, setScreenName] = useState('')
+
 	const [attendeeData, setAttendeeData] = useState('')
 	const [userMatch, setUserMatch] = useState(undefined)
+	const [userFound, setUserFound] = useState(false)
+
+	const [viewCheckbox, setViewCheckbox] = useState(false)
+	//const [queryParams, setQueryParams] = useState({})
 
 	useEffect(() => {
+		findUser(queryString.parse(location.search).email)
 		getAttendeeData()
 	}, [])
 
@@ -53,9 +65,23 @@ const RegistrationForm = ({ className }) => {
 		console.log('EMAIL MATCHED?', isMatch)
 	}, 1000)
 
+	const findUser = async email => {
+		try {
+			const { data } = await expoHallAPI.post('/login/', { email })
+			if (data.attendee) {
+				setUserFound(true)
+				console.log('email', data.attendee.email)
+				setEmail(data.attendee.email)
+			}
+			console.log('RETURNED USER', data)
+		} catch (error) {
+			console.log('ERROR', error)
+		}
+	}
+
 	const setUserContext = async email => {
 		try {
-			const { data } = await expoHallAPI.post('/login/', { email: email })
+			const { data } = await expoHallAPI.post('/login/', { email })
 			console.log('RETURNED USER', data)
 			setUser(data.attendee)
 		} catch (error) {
@@ -74,44 +100,42 @@ const RegistrationForm = ({ className }) => {
 
 	return (
 		<div className={className}>
+			<p className='redirect'>
+				Are you an exhibitor?
+				<Link to='/exhibitors'>
+					<span>&nbsp;Click Here</span>
+				</Link>
+			</p>
 			<div>
 				<img src={require('../../assets/SHRM.png')} alt='SHRM Logo' />
 			</div>
 			<h1>Welcome to the expo hall!</h1>
-			<h5>Please enter your information below</h5>
+			{/* <h5>Please enter your information below</h5> */}
 			<section>
 				<div className='instruction-box'>
-					<div className='item'>
-						<div className='item-icon'>
-							<SigninIcon />
+					{userMatch === true && (
+						<div className='item'>
+							<div className='item-icon'>
+								<SigninIcon />
+							</div>
+							<div className='item-text'>
+								Your email matches our records <br /> Enter a
+								screen name for chat and click submit to
+								continue to the expo
+							</div>
 						</div>
-						<div className='item-text'>
-							Already registered? <br/> Enter your registration email to
-							gain access.
+					)}
+					{userMatch === false && (
+						<div className='item'>
+							<div className='item-icon'>
+								<SignupIcon />
+							</div>
+							<div className='item-text'>
+								First time here? <br /> Fill out the information
+								below.
+							</div>
 						</div>
-					</div>
-					<div className='item'>
-						<div className='item-icon'>
-							<SignupIcon />
-						</div>
-						<div className='item-text'>
-							First time here? <br/> Fill out the information below.
-						</div>
-					</div>
-					<div className='item'>
-						<div className='item-icon'>
-							<ExhibitorIcon />
-						</div>
-						<div className='item-text'>
-							<p className='redirect'>
-								Are you an exhibitor? <br/>
-								<Link to='/exhibitors'>
-									<span>Click Here </span>
-								</Link>
-								for the exhibitor portal
-							</p>
-						</div>
-					</div>
+					)}
 				</div>
 			</section>
 			<form>
@@ -135,76 +159,96 @@ const RegistrationForm = ({ className }) => {
 						}}
 					/>
 				</div>
-				<div className='formItem email'>
+				<div className='formItem'>
 					<label className='formLabel' htmlFor='username'>
-						Choose a screen name:
+						Screen name (min 5 characters):
 					</label>
 					<RegistrationInput
 						type='text'
 						name='username'
 						id='username'
 						placeholder='choose a screen name'
+						required='require'
 						value={screenName}
 						onChange={e => setScreenName(e.target.value)}
 					/>
 				</div>
-				<div className='toggle'>
-					<Toggle
-						defaultChecked={false}
-						className='toggleClass'
-						icons={false}
-						onChange={() => console.log('changed')}
-					/>
-					<span>GDPR save data</span>
-				</div>
-				<div className='toggle'>
-					<Toggle
-						defaultChecked={false}
-						className='toggleClass'
-						icons={false}
-						onChange={() => console.log('changed')}
-					/>
-					<span>Automatically share data with exhibitors</span>
-				</div>
-				<div className='checkbox'>
-					<input
-						type='checkbox'
-						id='acceptUse'
-						name='acceptUse'
-						value='yes'
-						className='checkmark'
-						//onChange={e => setAcceptUse(e.target.value)}
-					/>
-					<label for='acceptUse' className='checkbox-label'>
-						Accept terms of use
-					</label>
-				</div>
-				<div className='checkbox'>
-					<input
-						type='checkbox'
-						id='acceptConduct'
-						name='acceptConduct'
-						value='yes'
-						className='checkmark'
-					/>
-					<label for='acceptConduct' className='checkbox-label'>
-						Accept code of conduct
-					</label>
-				</div>
-				<div className='checkbox'>
-					<input
-						type='checkbox'
-						id='acceptPrivacy'
-						name='acceptPrivacy'
-						value='yes'
-						className='checkmark'
-					/>
-					<label for='acceptPrivacy' className='checkbox-label'>
-						Accept privacy
-					</label>
-				</div>
-				<RegistrationButton onClick={e => e.preventDefault()}>
-					Submit
+				{userMatch === false && (
+					<div className='terms'>
+						<div className='toggle'>
+							<Toggle
+								defaultChecked={false}
+								className='toggleClass'
+								icons={false}
+								onChange={() => console.log('changed')}
+							/>
+							<span>GDPR save data</span>
+						</div>
+						<div className='toggle'>
+							<Toggle
+								defaultChecked={false}
+								className='toggleClass'
+								icons={false}
+								onChange={() => console.log('changed')}
+							/>
+							<span>
+								Automatically share data with exhibitors
+							</span>
+						</div>
+						<div className='checkbox'>
+							<input
+								type='checkbox'
+								id='acceptUse'
+								name='acceptUse'
+								value='yes'
+								className='checkmark'
+								//onChange={e => setAcceptUse(e.target.value)}
+							/>
+							<label for='acceptUse' className='checkbox-label'>
+								Accept terms of use
+							</label>
+						</div>
+						<div className='checkbox'>
+							<input
+								type='checkbox'
+								id='acceptConduct'
+								name='acceptConduct'
+								value='yes'
+								className='checkmark'
+							/>
+							<label
+								for='acceptConduct'
+								className='checkbox-label'
+							>
+								Accept code of conduct
+							</label>
+						</div>
+						<div className='checkbox'>
+							<input
+								type='checkbox'
+								id='acceptPrivacy'
+								name='acceptPrivacy'
+								value='yes'
+								className='checkmark'
+							/>
+							<label
+								for='acceptPrivacy'
+								className='checkbox-label'
+							>
+								Accept privacy
+							</label>
+						</div>
+					</div>
+				)}
+				<RegistrationButton
+					onClick={e => {
+						e.preventDefault()
+						history.push('/slides')
+					}}
+					isDisabled={!userMatch || !email || screenName.length < 5 ? true : false}
+					disabled={!userMatch || !email || screenName.length < 5 ? true : false}
+				>
+					{userMatch ? 'Continue' : 'Submit'}
 				</RegistrationButton>
 			</form>
 		</div>
@@ -234,7 +278,7 @@ export default styled(RegistrationForm)`
 		align-items: flex-start;
 		width: 80%;
 
-		> div {
+		.terms {
 			margin-bottom: 2rem;
 		}
 	}
@@ -264,15 +308,15 @@ export default styled(RegistrationForm)`
 				margin-left: 1rem;
 				letter-spacing: 1.2px;
 			}
+		}
+	}
 
-			.redirect {
-				padding-top: .2rem;
-				a {
-					text-decoration: none;
-					color: ${setColor.primaryBlue};
-					font-weight: bold;
-				}
-			}
+	.redirect {
+		padding-top: 0.2rem;
+		a {
+			text-decoration: none;
+			color: ${setColor.primaryBlue};
+			font-weight: bold;
 		}
 	}
 

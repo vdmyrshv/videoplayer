@@ -5,9 +5,9 @@ import truncateString from '../../utils/truncateString'
 
 import IconsBar from './IconsBar'
 
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-import {setColor} from '../../styles/styles'
+import { setColor } from '../../styles/styles'
 
 import SliderItemModal from './SliderItemModal'
 
@@ -20,20 +20,44 @@ let zoomCharacteristics = {
 
 const setZoomSpeed = zoomSpeed => {
 	const cssZoomSpeed = zoomSpeed * 0.0034
-	return `transition: ${cssZoomSpeed}s;`
+	console.log(`
+	transition: ${cssZoomSpeed}s;
+`)
+	return `
+		transition: all ${cssZoomSpeed}s;
+	`
 }
 const setZoomLevel = zoomLevel => {
 	const cssZoomLevel = zoomLevel / 100 + 1
-	return `transform: scale(${cssZoomLevel});`
+	console.log(`
+	transform: scale(${cssZoomLevel});
+`)
+	return `
+		transform: scale(${cssZoomLevel});
+	`
 }
+
+const TileDiv = styled.div`
+	:hover {
+		${props => setZoomLevel(props.zoomLevel)}
+		${props => setZoomSpeed(props.zoomSpeed)}
+	}
+`
 
 const SliderItem = ({ className, data, windowDimensions }) => {
 	const sizeRef = useRef()
 
-	const { company, caption, image, company_url, video } = data
+	const {
+		company,
+		caption,
+		image,
+		company_url,
+		video,
+		zoomSpeed,
+		zoomLevel
+	} = data
 
 	const [isHovering, setIsHovering] = useState(false)
-	const [isFocused, setIsFocused] = useState(false)
 	const [modalIsOpen, setModalIsOpen] = useState(false)
 
 	const [containerWidth, setContainerWidth] = useState('340px')
@@ -42,26 +66,22 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 	const handleMouseEnter = () => setIsHovering(true)
 	const handleMouseLeave = () => setIsHovering(false)
 
-	useEffect(() => {
-		console.log(isFocused)
-	}, [isFocused])
-
 	const truncatedCaption = truncateString(caption, 120)
 
 	useEffect(() => {
 		zoomCharacteristics.zoomSpeed = setZoomSpeed(data.zoomSpeed)
 		zoomCharacteristics.zoomLevel = setZoomLevel(data.zoomLevel)
-		//console.log('ZOOMSPEED', zoomCharacteristics.zoomSpeed)
-		//console.log('zoomlevel', zoomCharacteristics.zoomLevel)
+		console.log('ZOOMSPEED', zoomCharacteristics.zoomSpeed)
+		console.log('zoomlevel', zoomCharacteristics.zoomLevel)
+		console.log('TILE DATA', data)
 	}, [data])
 
 	useEffect(() => {
 		// console.log('WIDTH', sizeRef.current ? sizeRef.current.offsetWidth : 0)
 		if (sizeRef.current) {
-			setContainerWidth(`${sizeRef.current.offsetWidth}px`)
-			setContainerHeight(`${sizeRef.current.offsetHeight}px`)
+			setContainerWidth(`${sizeRef.current.offsetWidth + 1}px`)
+			setContainerHeight(`${sizeRef.current.offsetHeight + 1}px`)
 		}
-
 	}, [sizeRef.current, windowDimensions])
 
 	const closeModal = () => setModalIsOpen(false)
@@ -75,15 +95,14 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 				closeModal={closeModal}
 				companyData={{ company, caption, image, company_url }}
 			/>
-			<div
+			<TileDiv
 				className={className}
 				onClick={() => {
-					setIsFocused(true)
 					openModal()
 				}}
-				onMouseEnter={() => setIsHovering(true)}
-				onMouseLeave={() => setIsFocused(false)}
 				ref={sizeRef}
+				zoomLevel={zoomLevel}
+				zoomSpeed={zoomSpeed}
 			>
 				{!!video && (
 					<VideoTransition
@@ -146,7 +165,7 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 						/>
 					</div>
 				</div>
-			</div>
+			</TileDiv>
 		</>
 	)
 }
@@ -160,6 +179,7 @@ export default styled(SliderItem)`
 	/* border: 2px white solid; */
 	z-index: 0;
 	background-color: ivory;
+	backface-visibility: hidden;
 
 	.background {
 		background-position: center;
@@ -208,8 +228,6 @@ export default styled(SliderItem)`
 	}
 
 	:hover {
-		${zoomCharacteristics.zoomLevel}
-		${zoomCharacteristics.zoomSpeed} 
 		z-index: 20;
 		/* border: 2px solid ${setColor.primaryBlue}; */
 		backface-visibility: hidden;

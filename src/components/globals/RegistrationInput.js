@@ -40,6 +40,7 @@ const RegistrationInput = styled.input`
 	:focus {
         ${borderColorMixin}
 	}
+
 `
 
 export default RegistrationInput

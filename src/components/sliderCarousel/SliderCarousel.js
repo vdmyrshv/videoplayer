@@ -74,7 +74,6 @@ export default styled(SliderCarousel)`
 	h2 {
 		margin-left: 1.5rem;
 		font-weight: 300;
-		color: ${setColor.primaryBlue};
 		margin-bottom: 4rem;
 	}
 

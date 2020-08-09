@@ -40,7 +40,9 @@ const IconsBar = ({
 					tooltipFontSize
 				}}
 			>
-				<PhoneIcon tooltipTitle='call to find out more' />
+				<PhoneIcon
+					tooltipTitle='call to find out more'
+				/>
 				<IdIcon tooltipTitle='drop a business card' />
 				<GiftIcon tooltipTitle='drop some swag' />
 				<ArrowIcon tooltipTitle='go to site' />
