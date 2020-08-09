@@ -95,7 +95,10 @@ const IconsContainer = ({ children, tooltipTitle }) => {
 				iconColor={iconColor}
 				onMouseEnter={() => setIsHover(true)}
 				onMouseLeave={() => setIsHover(false)}
-				onClick={() => console.log('CLICKED!!!!')}
+				onClick={event => {
+					event.stopPropagation();
+					console.log('CLICKED!!!!')
+				}}
 			>
 				{children}
 			</IconDiv>
@@ -107,10 +110,7 @@ const StyledIconsContainer = styled(IconsContainer)``
 
 export const PhoneIcon = ({ tooltipTitle }) => (
 	<StyledIconsContainer tooltipTitle={tooltipTitle}>
-		<svg
-			xmlns='http://www.w3.org/2000/svg'
-			viewBox='0 0 66 82.5'
-		>
+		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 66 82.5'>
 			<g>
 				<path d='M35,44V39a8,8,0,0,0-8-8,1,1,0,0,0-.86.49L24,35.06l-2.14-3.57A1,1,0,0,0,21,31a8,8,0,0,0-8,8v5a1,1,0,0,0,1,1H34A1,1,0,0,0,35,44Zm-2-1H15V39a6,6,0,0,1,5.45-6l2.69,4.48a1,1,0,0,0,1.72,0L27.55,33A6,6,0,0,1,33,39Z' />
 				<path d='M37,30h2v4a1,1,0,0,0,.62.92A.84.84,0,0,0,40,35a1,1,0,0,0,.71-.29L45.41,30H53a1,1,0,0,0,1-1V17a1,1,0,0,0-1-1H37a1,1,0,0,0-1,1V29A1,1,0,0,0,37,30Zm1-12H52V28H45a1,1,0,0,0-.71.29L41,31.59V29a1,1,0,0,0-1-1H38Z' />

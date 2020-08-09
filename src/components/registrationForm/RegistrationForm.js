@@ -150,8 +150,8 @@ const RegistrationForm = ({ className }) => {
 						id='email'
 						placeholder='email'
 						value={email}
-						onChange={e => {
-							setEmail(e.target.value)
+						onChange={event => {
+							setEmail(event.target.value)
 						}}
 						userMatch={userMatch}
 						onBlur={() => {
@@ -170,7 +170,7 @@ const RegistrationForm = ({ className }) => {
 						placeholder='choose a screen name'
 						required='require'
 						value={screenName}
-						onChange={e => setScreenName(e.target.value)}
+						onChange={event => setScreenName(event.target.value)}
 					/>
 				</div>
 				{userMatch === false && (

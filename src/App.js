@@ -22,8 +22,6 @@ import { Provider as UserProvider } from './context/UserContext'
 const App = ({ className }) => {
 	const [exhibitorData, setExhibitorData] = useState([])
 
-	console.log(mockData)
-
 	useEffect(() => {
 		getData()
 	}, [])

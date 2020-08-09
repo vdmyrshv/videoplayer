@@ -52,6 +52,7 @@ const SliderItemModal = ({
 			isOpen={modalIsOpen}
 			style={customStyles}
 			onRequestClose={closeModal}
+			ariaHideApp={false}
 		>
 			<div className={className}>
 				<div onClick={closeModal} className='close-icon'>

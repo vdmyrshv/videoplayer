@@ -20,29 +20,16 @@ let zoomCharacteristics = {
 
 const setZoomSpeed = zoomSpeed => {
 	const cssZoomSpeed = zoomSpeed * 0.0034
-	console.log(`
-	transition: ${cssZoomSpeed}s;
-`)
 	return `
 		transition: all ${cssZoomSpeed}s;
 	`
 }
 const setZoomLevel = zoomLevel => {
 	const cssZoomLevel = zoomLevel / 100 + 1
-	console.log(`
-	transform: scale(${cssZoomLevel});
-`)
 	return `
 		transform: scale(${cssZoomLevel});
 	`
 }
-
-const TileDiv = styled.div`
-	:hover {
-		${props => setZoomLevel(props.zoomLevel)}
-		${props => setZoomSpeed(props.zoomSpeed)}
-	}
-`
 
 const SliderItem = ({ className, data, windowDimensions }) => {
 	const sizeRef = useRef()
@@ -71,9 +58,9 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 	useEffect(() => {
 		zoomCharacteristics.zoomSpeed = setZoomSpeed(data.zoomSpeed)
 		zoomCharacteristics.zoomLevel = setZoomLevel(data.zoomLevel)
-		console.log('ZOOMSPEED', zoomCharacteristics.zoomSpeed)
-		console.log('zoomlevel', zoomCharacteristics.zoomLevel)
-		console.log('TILE DATA', data)
+		//console.log('ZOOMSPEED', zoomCharacteristics.zoomSpeed)
+		//console.log('zoomlevel', zoomCharacteristics.zoomLevel)
+		//console.log('TILE DATA', data)
 	}, [data])
 
 	useEffect(() => {
@@ -169,6 +156,13 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 		</>
 	)
 }
+
+const TileDiv = styled.div`
+	:hover {
+		${props => setZoomLevel(props.zoomLevel)}
+		${props => setZoomSpeed(props.zoomSpeed)}
+	}
+`
 
 export default styled(SliderItem)`
 	height: 100%;
