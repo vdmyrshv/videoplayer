@@ -230,7 +230,9 @@ export default styled(RegistrationForm)`
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
+		align-self: center;
 		align-items: flex-start;
+		width: 80%;
 
 		> div {
 			margin-bottom: 2rem;
