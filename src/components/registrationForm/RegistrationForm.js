@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
+
 import styled from 'styled-components'
+import { setColor } from '../../styles/styles'
 
 import { Context as UserContext } from '../../context/UserContext'
 
@@ -11,6 +13,8 @@ import expoHallAPI from '../../api/expoHallAPI'
 
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
+
+import RegistrationButton from '../globals/RegistrationButton'
 
 const RegistrationForm = ({ className }) => {
 	const { state, setUser } = useContext(UserContext)
@@ -72,15 +76,22 @@ const RegistrationForm = ({ className }) => {
 			<h1>Welcome to the expo hall!</h1>
 			<form>
 				<h5>Please enter your information below</h5>
+
+				<p>
+					If you've already registered, enter your registration email
+					to gain access. If you have not yet registered, please fill
+					out your information for the exhibitors.
+				</p>
+
 				<div className='formItem'>
-					<label htmlFor='email' className='formLabel'>
+					{/* <label htmlFor='email' className='formLabel'>
 						Email/Username
-					</label>
+					</label> */}
 					<input
 						type='email'
 						name='email'
 						id='email'
-						placeholder='email/username'
+						placeholder='enter your email'
 						value={email}
 						onChange={e => setEmail(e.target.value)}
 						style={{
@@ -89,7 +100,7 @@ const RegistrationForm = ({ className }) => {
 									? 'green'
 									: userMatch === false
 									? 'red'
-									: ''
+									: 'inherit'
 						}}
 						onBlur={e => {
 							if (!email) e.target.style.borderColor = 'grey'
@@ -97,14 +108,14 @@ const RegistrationForm = ({ className }) => {
 					/>
 				</div>
 				<div className='formItem'>
-					<label className='formLabel' htmlFor='username'>
+					{/* <label className='formLabel' htmlFor='username'>
 						Screen Name
-					</label>
+					</label> */}
 					<input
 						type='text'
 						name='username'
 						id='username'
-						placeholder='screename'
+						placeholder='choose a screen name'
 						value={screenName}
 						onChange={e => setScreenName(e.target.value)}
 					/>
@@ -165,6 +176,9 @@ const RegistrationForm = ({ className }) => {
 						Accept privacy
 					</label>
 				</div>
+				<RegistrationButton onClick={e => e.preventDefault()}>
+					Submit
+				</RegistrationButton>
 			</form>
 		</div>
 	)
@@ -179,11 +193,13 @@ export default styled(RegistrationForm)`
 	justify-content: center;
 	align-items: center;
 	padding: 2rem;
+	font-weight: 300;
 
 	form {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
+		width: 50rem;
 
 		& > div {
 			margin-bottom: 2rem;
@@ -191,20 +207,24 @@ export default styled(RegistrationForm)`
 	}
 
 	.formLabel {
-		margin-bottom: 0.5rem;
+		margin-bottom: 1rem;
 	}
 
 	input {
 		background-color: inherit;
 		font-family: inherit;
 		outline: none;
-		color: darkcyan;
+		color: ${setColor.primaryBlue};
 		border: grey 2px solid;
-		border-radius: 2rem;
+		border-radius: 10rem;
 		padding: 1rem 2rem;
 		font-size: 2rem;
 		::placeholder {
 			color: grey;
+		}
+
+		:focus {
+			border-color: ${setColor.secondaryBlue}
 		}
 	}
 
@@ -226,6 +246,10 @@ export default styled(RegistrationForm)`
 		font-weight: 300;
 	}
 
+	p {
+		margin-bottom: 1rem;
+	}
+
 	.formItem {
 		display: flex;
 		flex-direction: column;
@@ -245,9 +269,9 @@ export default styled(RegistrationForm)`
 	}
 
 	.checkmark:checked + .checkbox-label::before {
-			background-color: darkcyan;
-			z-index: 10;
-			transition: all 0.2s;
+		background-color: ${setColor.secondaryBlue};
+		z-index: 10;
+		transition: all 0.2s;
 	}
 
 	.checkbox-label {
@@ -258,10 +282,10 @@ export default styled(RegistrationForm)`
 			display: block;
 			position: absolute;
 			left: -15px;
-            top: 50%;
-            transform: translateY(-50%);
-			background-color: white;
-			border: 2px darkcyan solid;
+			top: 50%;
+			transform: translateY(-50%);
+			background-color: ${setColor.mainGrey};
+			border: 2px ${setColor.secondaryBlue} solid;
 			border-radius: 5px;
 			z-index: 10;
 			transition: all 0.2s;
@@ -280,6 +304,6 @@ export default styled(RegistrationForm)`
 
 	.toggleClass.react-toggle:hover:not(.react-toggle--disabled)
 		.react-toggle-track {
-		background-color: darkcyan;
+		background-color: ${setColor.secondaryBlue};
 	}
 `
