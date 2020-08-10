@@ -13,11 +13,6 @@ import SliderItemModal from './SliderItemModal'
 
 import VideoTransition from '../globals/VideoTransition'
 
-let zoomCharacteristics = {
-	zoomSpeed: `transition: 2s;`,
-	zoomLevel: `transform: scale(1.5);`
-}
-
 const setZoomSpeed = zoomSpeed => {
 	const cssZoomSpeed = zoomSpeed * 0.0034
 	return `
@@ -41,7 +36,8 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 		company_url,
 		video,
 		zoomSpeed,
-		zoomLevel
+		zoomLevel,
+		videocall_url
 	} = data
 
 	const [isHovering, setIsHovering] = useState(false)
@@ -56,11 +52,7 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 	const truncatedCaption = truncateString(caption, 120)
 
 	useEffect(() => {
-		zoomCharacteristics.zoomSpeed = setZoomSpeed(data.zoomSpeed)
-		zoomCharacteristics.zoomLevel = setZoomLevel(data.zoomLevel)
-		//console.log('ZOOMSPEED', zoomCharacteristics.zoomSpeed)
-		//console.log('zoomlevel', zoomCharacteristics.zoomLevel)
-		//console.log('TILE DATA', data)
+		console.log('TILE DATA', data)
 	}, [data])
 
 	useEffect(() => {
@@ -139,6 +131,7 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 							handleMouseLeave={handleMouseLeave}
 							iconColor='#555555'
 							tooltipFontSize={14}
+							videocallURL={videocall_url}
 							tooltipPlacement='right'
 							small
 							style={{

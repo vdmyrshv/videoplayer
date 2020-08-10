@@ -21,7 +21,8 @@ const IconsBar = ({
 	iconHoverColor,
 	tooltipDelay = 200,
 	tooltipPlacement = 'bottom',
-	tooltipFontSize = 14
+	tooltipFontSize = 14,
+	videocallURL
 }) => {
 	return (
 		<div
@@ -42,6 +43,7 @@ const IconsBar = ({
 			>
 				<PhoneIcon
 					tooltipTitle='call to find out more'
+					videocallURL={videocallURL}
 				/>
 				<IdIcon tooltipTitle='drop a business card' />
 				<GiftIcon tooltipTitle='drop some swag' />

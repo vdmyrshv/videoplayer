@@ -62,14 +62,14 @@ const IconDiv = styled.div`
 	}
 `
 
-const IconsContainer = ({ children, tooltipTitle }) => {
+const IconsContainer = ({ children, tooltipTitle, clickHandler }) => {
 	const {
 		small,
 		iconColor,
 		iconHoverColor,
 		tooltipDelay,
 		tooltipPlacement,
-		tooltipFontSize
+		tooltipFontSize,
 	} = useContext(IconContext)
 	const [isHover, setIsHover] = useState(false)
 	return (
@@ -91,12 +91,15 @@ const IconsContainer = ({ children, tooltipTitle }) => {
 			enterDelay={tooltipDelay}
 		>
 			<IconDiv
-				small={!!small}
+				small={small}
 				iconColor={iconColor}
 				onMouseEnter={() => setIsHover(true)}
 				onMouseLeave={() => setIsHover(false)}
 				onClick={event => {
-					event.stopPropagation();
+					event.stopPropagation()
+					if (clickHandler) clickHandler()
+					window.open("http://www.google.com", "_blank")
+					//handler goes here
 					console.log('CLICKED!!!!')
 				}}
 			>
@@ -108,19 +111,21 @@ const IconsContainer = ({ children, tooltipTitle }) => {
 
 const StyledIconsContainer = styled(IconsContainer)``
 
-export const PhoneIcon = ({ tooltipTitle }) => (
-	<StyledIconsContainer tooltipTitle={tooltipTitle}>
-		<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 66 82.5'>
-			<g>
-				<path d='M35,44V39a8,8,0,0,0-8-8,1,1,0,0,0-.86.49L24,35.06l-2.14-3.57A1,1,0,0,0,21,31a8,8,0,0,0-8,8v5a1,1,0,0,0,1,1H34A1,1,0,0,0,35,44Zm-2-1H15V39a6,6,0,0,1,5.45-6l2.69,4.48a1,1,0,0,0,1.72,0L27.55,33A6,6,0,0,1,33,39Z' />
-				<path d='M37,30h2v4a1,1,0,0,0,.62.92A.84.84,0,0,0,40,35a1,1,0,0,0,.71-.29L45.41,30H53a1,1,0,0,0,1-1V17a1,1,0,0,0-1-1H37a1,1,0,0,0-1,1V29A1,1,0,0,0,37,30Zm1-12H52V28H45a1,1,0,0,0-.71.29L41,31.59V29a1,1,0,0,0-1-1H38Z' />
-				<path d='M24,29a5,5,0,1,0-5-5A5,5,0,0,0,24,29Zm0-8a3,3,0,1,1-3,3A3,3,0,0,1,24,21Z' />
-				<path d='M41,22h8a1,1,0,0,0,0-2H41a1,1,0,0,0,0,2Z' />
-				<path d='M41,26h8a1,1,0,0,0,0-2H41a1,1,0,0,0,0,2Z' />
-				<path d='M64,48H63V13a3,3,0,0,0-3-3H6a3,3,0,0,0-3,3V48H2a1,1,0,0,0-1,1v2a5,5,0,0,0,5,5H60a5,5,0,0,0,5-5V49A1,1,0,0,0,64,48ZM5,13a1,1,0,0,1,1-1H60a1,1,0,0,1,1,1V48H39a1,1,0,0,0-.89.55L37.38,50H28.62l-.73-1.45A1,1,0,0,0,27,48H5ZM63,51a3,3,0,0,1-3,3H6a3,3,0,0,1-3-3V50H26.38l.73,1.45A1,1,0,0,0,28,52H38a1,1,0,0,0,.89-.55L39.62,50H63Z' />
-			</g>
-		</svg>
-	</StyledIconsContainer>
+export const PhoneIcon = ({ tooltipTitle, videocallURL }) => (
+	<a href={videocallURL} target='_blank '>
+		<StyledIconsContainer tooltipTitle={tooltipTitle}>
+			<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 66 82.5'>
+				<g>
+					<path d='M35,44V39a8,8,0,0,0-8-8,1,1,0,0,0-.86.49L24,35.06l-2.14-3.57A1,1,0,0,0,21,31a8,8,0,0,0-8,8v5a1,1,0,0,0,1,1H34A1,1,0,0,0,35,44Zm-2-1H15V39a6,6,0,0,1,5.45-6l2.69,4.48a1,1,0,0,0,1.72,0L27.55,33A6,6,0,0,1,33,39Z' />
+					<path d='M37,30h2v4a1,1,0,0,0,.62.92A.84.84,0,0,0,40,35a1,1,0,0,0,.71-.29L45.41,30H53a1,1,0,0,0,1-1V17a1,1,0,0,0-1-1H37a1,1,0,0,0-1,1V29A1,1,0,0,0,37,30Zm1-12H52V28H45a1,1,0,0,0-.71.29L41,31.59V29a1,1,0,0,0-1-1H38Z' />
+					<path d='M24,29a5,5,0,1,0-5-5A5,5,0,0,0,24,29Zm0-8a3,3,0,1,1-3,3A3,3,0,0,1,24,21Z' />
+					<path d='M41,22h8a1,1,0,0,0,0-2H41a1,1,0,0,0,0,2Z' />
+					<path d='M41,26h8a1,1,0,0,0,0-2H41a1,1,0,0,0,0,2Z' />
+					<path d='M64,48H63V13a3,3,0,0,0-3-3H6a3,3,0,0,0-3,3V48H2a1,1,0,0,0-1,1v2a5,5,0,0,0,5,5H60a5,5,0,0,0,5-5V49A1,1,0,0,0,64,48ZM5,13a1,1,0,0,1,1-1H60a1,1,0,0,1,1,1V48H39a1,1,0,0,0-.89.55L37.38,50H28.62l-.73-1.45A1,1,0,0,0,27,48H5ZM63,51a3,3,0,0,1-3,3H6a3,3,0,0,1-3-3V50H26.38l.73,1.45A1,1,0,0,0,28,52H38a1,1,0,0,0,.89-.55L39.62,50H63Z' />
+				</g>
+			</svg>
+		</StyledIconsContainer>
+	</a>
 )
 
 export const IdIcon = ({ tooltipTitle }) => (

@@ -38,13 +38,13 @@ const App = ({ className }) => {
 				<ExhibitorContext.Provider value={exhibitorData}>
 					<Router>
 						<Switch>
-							<Route exact path='/'>
+							<Route path='/home'>
 								<RegistrationForm />
 							</Route>
-							<Route path='/exhibitors' render={props => <div><h1>Exhibitors</h1></div>} />
-							<Route path='/slides'>
+							<Route path='/'>
 								<SliderPage />
 							</Route>
+							<Route path='/exhibitors' render={props => <div><h1>Exhibitors</h1></div>} />
 							<Route
 								path='*'
 								render={props => <div>Not found!</div>}

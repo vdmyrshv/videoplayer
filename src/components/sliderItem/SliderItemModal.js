@@ -88,8 +88,7 @@ export default styled(SliderItemModal)`
 	align-items: flex-start;
 	height: 100%;
     width: 100%;
-    backface-visibility: hidden;
-
+	
 	.close-icon {
 		height: 20px;
 		width: 20px;
