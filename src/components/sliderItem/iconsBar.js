@@ -22,8 +22,9 @@ const IconsBar = ({
 	tooltipDelay = 200,
 	tooltipPlacement = 'bottom',
 	tooltipFontSize = 14,
-	videocallURL
+	iconHandlers
 }) => {
+	console.log('ICON HANDLERS IN ICONSBAR', iconHandlers)
 	return (
 		<div
 			className={className}
@@ -38,18 +39,15 @@ const IconsBar = ({
 					iconHoverColor,
 					tooltipDelay,
 					tooltipPlacement,
-					tooltipFontSize
+					tooltipFontSize,
+					iconHandlers
 				}}
 			>
-				<PhoneIcon
-					tooltipTitle='call to find out more'
-					videocallURL={videocallURL}
-				/>
+				<PhoneIcon tooltipTitle='call to find out more' />
 				<IdIcon tooltipTitle='drop a business card' />
 				<GiftIcon tooltipTitle='drop some swag' />
 				<ArrowIcon tooltipTitle='go to site' />
 				<ChatIcon tooltipTitle='chat with a representative' />
-				<CalendarIcon tooltipTitle='book a meeting' />
 			</IconContext.Provider>
 		</div>
 	)

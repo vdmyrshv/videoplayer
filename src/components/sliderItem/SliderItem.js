@@ -51,6 +51,15 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 
 	const truncatedCaption = truncateString(caption, 120)
 
+	const handleZoomCall = () => window.open(`${videocall_url}`, '_blank')
+
+	const handleNavigateToSite = () => window.open(`${company_url}`, '_blank')
+
+	const iconHandlers = {
+		handleZoomCall,
+		handleNavigateToSite
+	}
+
 	useEffect(() => {
 		console.log('TILE DATA', data)
 	}, [data])
@@ -73,6 +82,7 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 				modalIsOpen={modalIsOpen}
 				closeModal={closeModal}
 				companyData={{ company, caption, image, company_url }}
+				iconHandlers={iconHandlers}
 			/>
 			<TileDiv
 				className={className}
@@ -131,7 +141,6 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 							handleMouseLeave={handleMouseLeave}
 							iconColor='#555555'
 							tooltipFontSize={14}
-							videocallURL={videocall_url}
 							tooltipPlacement='right'
 							small
 							style={{
@@ -142,6 +151,7 @@ const SliderItem = ({ className, data, windowDimensions }) => {
 								position: 'absolute',
 								flexDirection: 'column'
 							}}
+							iconHandlers={iconHandlers}
 						/>
 					</div>
 				</div>

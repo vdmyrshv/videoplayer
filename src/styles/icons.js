@@ -62,14 +62,14 @@ const IconDiv = styled.div`
 	}
 `
 
-const IconsContainer = ({ children, tooltipTitle, clickHandler }) => {
+const IconsContainer = ({ children, tooltipTitle, handleClick }) => {
 	const {
 		small,
 		iconColor,
 		iconHoverColor,
 		tooltipDelay,
 		tooltipPlacement,
-		tooltipFontSize,
+		tooltipFontSize
 	} = useContext(IconContext)
 	const [isHover, setIsHover] = useState(false)
 	return (
@@ -97,8 +97,8 @@ const IconsContainer = ({ children, tooltipTitle, clickHandler }) => {
 				onMouseLeave={() => setIsHover(false)}
 				onClick={event => {
 					event.stopPropagation()
-					if (clickHandler) clickHandler()
-					window.open("http://www.google.com", "_blank")
+					console.log('HANDLE CLICK', handleClick)
+					if (handleClick) handleClick()
 					//handler goes here
 					console.log('CLICKED!!!!')
 				}}
@@ -111,9 +111,11 @@ const IconsContainer = ({ children, tooltipTitle, clickHandler }) => {
 
 const StyledIconsContainer = styled(IconsContainer)``
 
-export const PhoneIcon = ({ tooltipTitle, videocallURL }) => (
-	<a href={videocallURL} target='_blank '>
-		<StyledIconsContainer tooltipTitle={tooltipTitle}>
+export const PhoneIcon = ({ tooltipTitle }) => {
+	const { iconHandlers } = useContext(IconContext)
+	console.log('ICON HANDLERS IN PHONE ICON', iconHandlers)
+	return (
+		<StyledIconsContainer tooltipTitle={tooltipTitle} handleClick={iconHandlers?.handleZoomCall}>
 			<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 66 82.5'>
 				<g>
 					<path d='M35,44V39a8,8,0,0,0-8-8,1,1,0,0,0-.86.49L24,35.06l-2.14-3.57A1,1,0,0,0,21,31a8,8,0,0,0-8,8v5a1,1,0,0,0,1,1H34A1,1,0,0,0,35,44Zm-2-1H15V39a6,6,0,0,1,5.45-6l2.69,4.48a1,1,0,0,0,1.72,0L27.55,33A6,6,0,0,1,33,39Z' />
@@ -125,8 +127,8 @@ export const PhoneIcon = ({ tooltipTitle, videocallURL }) => (
 				</g>
 			</svg>
 		</StyledIconsContainer>
-	</a>
-)
+	)
+}
 
 export const IdIcon = ({ tooltipTitle }) => (
 	<StyledIconsContainer tooltipTitle={tooltipTitle}>
@@ -157,8 +159,11 @@ export const GiftIcon = ({ tooltipTitle }) => (
 	</StyledIconsContainer>
 )
 
-export const ArrowIcon = ({ tooltipTitle }) => (
-	<StyledIconsContainer tooltipTitle={tooltipTitle}>
+export const ArrowIcon = ({ tooltipTitle, handleClick }) =>  {
+	const { iconHandlers } = useContext(IconContext)
+	console.log('ICON HANDLERS IN PHONE ICON', iconHandlers)
+	return (
+	<StyledIconsContainer tooltipTitle={tooltipTitle} handleClick={iconHandlers?.handleNavigateToSite}>
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			version='1.1'
@@ -167,7 +172,7 @@ export const ArrowIcon = ({ tooltipTitle }) => (
 			<path d='M95.4,45L66.1,15.7c-2.7-2.7-7.2-2.7-9.9,0c-2.7,2.7-2.7,7.2,0,9.9L73.5,43h-64c-3.9,0-7,3.1-7,7s3.1,7,7,7h64L56.2,74.3    c-2.7,2.7-2.7,7.2,0,9.9c1.4,1.4,3.2,2.1,5,2.1s3.6-0.7,5-2.1L95.4,55c1.3-1.3,2.1-3.1,2.1-5C97.5,48.1,96.8,46.3,95.4,45z' />
 		</svg>
 	</StyledIconsContainer>
-)
+)}
 
 export const ChatIcon = ({ tooltipTitle }) => (
 	<StyledIconsContainer tooltipTitle={tooltipTitle}>

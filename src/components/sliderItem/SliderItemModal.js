@@ -44,7 +44,8 @@ const SliderItemModal = ({
 	modalIsOpen,
 	closeModal,
 	companyData: { image, company, caption, company_url },
-	className
+	className,
+	iconHandlers
 }) => {
     //console.log('COMPANY DATA', company_url)
 	return (
@@ -76,6 +77,7 @@ const SliderItemModal = ({
                         alignSelf: 'stretch',
                         paddingTop: 10
 					}}
+					iconHandlers={iconHandlers}
 				/>
 			</div>
 		</ReactModal>
@@ -88,7 +90,7 @@ export default styled(SliderItemModal)`
 	align-items: flex-start;
 	height: 100%;
     width: 100%;
-	
+
 	.close-icon {
 		height: 20px;
 		width: 20px;
